@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# sets an environment variable only if it does not exist
+config() {
+    KEY=$1
+    VALUE=$2
+    if [ -z ${!KEY+x} ]; then
+       export $KEY=$VALUE
+    fi
+}

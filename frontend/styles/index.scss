@@ -1,0 +1,33 @@
+@import "bootstrap.scss";
+
+@import "~@fontsource/open-sans/index.css";
+@import "~@fontsource/open-sans/300.css";
+@import "~@fontsource/open-sans/400.css";
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+.header {
+  margin-top: 30px;
+}
+
+.logo {
+  position: relative;
+  top: -10px;
+  width: 300px;
+  margin-right: 30px;
+}
+
+.hello {
+  background: #ddd;
+}
+
+.page-title,
+.results-table {
+  margin-bottom: 30px;
+}
+
+.numericColumn {
+  text-align: right;
+}

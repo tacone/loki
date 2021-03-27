@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  frontend:
+    restart: "no"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NODE_ENV=development
+    # in development mode we mount the source folder as a volume
+    # and download the depencencies there so they can be parsed
+    # by the IDE
+    command: sh -c "yarn && yarn run dev"

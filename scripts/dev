@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# ------------------------------------------------------------------
+# This script wraps docker-compose to provide environment based
+# defaults and added functionality.
+#
+# Use it from the project root just like docker-composer
+#
+# example:
+#
+# scripts/dev up
+# ------------------------------------------------------------------
+
+SCRIPTS=$(dirname "$0")
+ROOT=$(realpath $SCRIPTS/..)
+
+source $SCRIPTS/lib/config
+source $SCRIPTS/lib/make-dockerignore
+source $SCRIPTS/lib/custom-commands
+
+# allow frontend and backend folders to be read by Dockerfile(s)
+make-dockerignore frontend backend
+
+COMMON="-f docker-compose.yml -f docker-compose.dev.yml"
+FRONTEND="-f docker/frontend/docker-compose.yml -f docker/frontend/docker-compose.dev.yml"
+BACKEND="-f docker/backend/docker-compose.yml -f docker/backend/docker-compose.dev.yml"
+POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
+
+handle-custom-commands "$@"
+
+docker-compose $COMMON $NGINX $FRONTEND $BACKEND $POSTGRES "$@"

@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -w src --exec ts-node src/index.ts",
+    "typeorm": "TS_NODE_PROJECT=tsconfig.json TS_NODE_TRANSPILE_ONLY=true ts-node ./node_modules/typeorm/cli.js",
+    "check-migrations": "ts-node src/check-migrations.ts",
+    "run-migrations": "yarn run typeorm migration:run"
+  },
+  "dependencies": {
+    "apollo-server": "^2.21.2",
+    "class-validator": "^0.13.1",
+    "graphql": "^15.5.0",
+    "pg": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.31"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}

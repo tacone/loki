@@ -1,0 +1,7 @@
+version: '3.4'
+
+services:
+  postgres:
+    restart: "no"
+    ports:
+      - ${POSTGRES_PORT:-7010}:5432

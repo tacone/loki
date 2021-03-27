@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      - POSTGRES_DATABASE_URL
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - /tmp/devday/postgres:/tmp
+    restart: "always"
+    environment:
+      POSTGRES_PASSWORD: postgrespassword

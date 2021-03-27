@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  backend:
+    image: survey-node
+    build:
+      context: ./
+      dockerfile: ./docker/backend/Dockerfile
+    restart: "always"
+    volumes:
+      - ./data/node/npm:/root/.npm
+      - /tmp/survey/backend:/tmp
+      - ./scripts/bin/wait-port:/usr/local/bin/wait-port:ro
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${POSTGRES_DATABASE_URL}
+    working_dir: /app
+    command: sh -c 'wait-port postgres 5432 && yarn run start'
+    ports:
+      - ${BACKEND_PORT:-7001}:3000

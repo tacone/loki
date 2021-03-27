@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  backend:
+    restart: "no"
+    volumes:
+      - ./backend:/app
+    environment:
+      - NODE_ENV=development
+    # in development mode we mount the source folder as a volume
+    # and download the depencencies there so they can be parsed
+    # by the IDE
+    #
+    # for development flexibility we only run migrations only if they have not been
+    # set up yet (first run)
+    command: sh -c "yarn && wait-port postgres 5432 && (yarn run check-migrations || yarn run run-migrations) && yarn run dev"

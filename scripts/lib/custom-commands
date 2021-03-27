@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# custom commands for docker compose
+handle-global-help() {
+    docker-compose help
+    echo
+    echo "Custom Commands:"
+    echo -e "$1"
+
+    exit 0;
+}
+
+handle-command-help() {
+    local print_help=0;
+
+    [ "$1" = "help" ] && [ "$2" = "ports" ] && print_help=1;
+    [ "$1" = "ports" ] && [ "$2" = "--help" ] && print_help=1;
+
+    if [ $print_help -eq 1 ]; then
+        # remove the first empty line
+        echo "$3" | tail -n +2;
+
+        exit 0;
+    fi;
+
+    return 0;
+}
+
+handle-custom-commands () {
+    local custom_commands;
+
+    custom_commands="$custom_commands  ports              Show open ports for each service\n";
+
+    handle-command-help $1 $2 "
+Validate and view the Compose file.
+
+Usage: ports
+";
+    if [ "$1" = "ports" ]; then
+        $0 config ${@:2}| $SCRIPTS/bin/yq r --printMode pv - '**.ports.**' | grep -i published | tr . ' '  | awk '{print $2 ": " $6}';
+        exit 0;
+    fi;
+
+    [ -z "$1" ] || [ "$1" = "help" ] && [ -z "$2" ] && handle-global-help "$custom_commands"
+}
