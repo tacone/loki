@@ -5,11 +5,6 @@ import SubmissionStatisticsType from "../types/SubmissionStatisticsType";
 
 @Resolver()
 export class SubmissionResolver {
-  @Query(() => String)
-  hello() {
-    return "world";
-  }
-
   @Query(() => [Submission])
   submissions() {
     return Submission.find();
