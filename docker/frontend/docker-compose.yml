@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   frontend:
-    image: survey-node
+    image: survey-node-frontend
     build:
       context: ./
       dockerfile: ./docker/frontend/Dockerfile
