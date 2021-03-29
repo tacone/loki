@@ -6,6 +6,11 @@ services:
     build:
       context: ./
       dockerfile: ./docker/backend/Dockerfile
+      args:
+        # IMPORTANT: we need to specify all the env needed by the build
+        # either here AND in the Dockerfile :(
+        - BUILD_COMMAND=yarn run build
+        - NODE_ENV=production
     restart: "always"
     volumes:
       - ./data/node/npm:/root/.npm
@@ -15,6 +20,6 @@ services:
       - NODE_ENV=production
       - DATABASE_URL=${POSTGRES_DATABASE_URL}
     working_dir: /app
-    command: sh -c 'wait-port postgres 5432 && yarn run start'
+    command: sh -c 'wait-port postgres 5432 && yarn run run-migrations && yarn run start'
     ports:
       - ${BACKEND_PORT:-7001}:3000
