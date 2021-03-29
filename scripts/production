@@ -28,4 +28,4 @@ POSTGRES="-f docker/postgres/docker-compose.yml"
 
 handle-custom-commands "$@"
 
-docker-compose $COMMON $NGINX $FRONTEND $BACKEND $POSTGRES "$@"
+docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES "$@"
