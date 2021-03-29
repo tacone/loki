@@ -24,7 +24,7 @@ make-dockerignore frontend backend
 COMMON="-f docker-compose.yml"
 FRONTEND="-f docker/frontend/docker-compose.yml"
 BACKEND="-f docker/backend/docker-compose.yml"
-POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
+POSTGRES="-f docker/postgres/docker-compose.yml"
 
 handle-custom-commands "$@"
 
