@@ -9,18 +9,46 @@ services:
       args:
         # IMPORTANT: we need to specify all the env needed by the build
         # either here AND in the Dockerfile :(
-        - BUILD_COMMAND=yarn run build
-        - NODE_ENV=production
-        - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
+
+        BUILD_COMMAND: >-
+          yarn run build
+          && echo
+          && echo "Compressing the build with brotli ..."
+          && time -f "Done in %e seconds." sh -c "find /app/.next/static -type f
+          | grep -v '\.br$$'
+          | grep -v '\.gz$$'
+          | tr '\n' '\0'
+          | xargs -n1 -0 brotli"
+        NODE_ENV: production
+        NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
     restart: "always"
     volumes:
       - ./data/node/npm:/root/.npm
       - /tmp/survey/frontend:/tmp
+
+      - frontend-static:/static
+
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
       - NEXT_TELEMETRY_DISABLED=1
+      - STATIC_FOLDER=/app/.next/static
     working_dir: /app
-    command: yarn run start
+    command: >-
+      sh -c '
+      set -x
+      && ( test $$STATIC_FOLDER || (echo "STATIC_FOLDER variable is empty" && false ))
+      && mkdir -p /static/current
+      && rm -rf /static/previous
+      && rm -rf /static/next
+      && cp -Rp $$STATIC_FOLDER /static/next
+      && mv /static/current /static/previous
+      && mv /static/next /static/current
+      && yarn run start
+      '
     ports:
       - ${FRONTEND_PORT:-7000}:3000
+
+volumes:
+  # we need to set up a volume so nginx sees the compiled files from sapper
+  frontend-static:

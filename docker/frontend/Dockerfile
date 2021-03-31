@@ -3,32 +3,35 @@ FROM node:12-alpine
 # we need it to brotli compress the static export
 RUN apk add brotli
 
-# copy the deps files, download and cache dependencies
-COPY ./frontend/package.json ./frontend/yarn.lock /deps/
-
-WORKDIR /deps
-
-ARG BUILD_COMMAND
-ENV BUILD_COMMAND ${BUILD_COMMAND}
-RUN echo 'BUILD_COMMAND set to '${BUILD_COMMAND}
-
+# declare the NODE_ENV. This will invalidate the cache from now on if
+# NODE_ENV changes.
 ARG NODE_ENV
 ENV NODE_ENV ${NODE_ENV}
 RUN echo 'NODE_ENV set to '${NODE_ENV}
+
+# we copy the deps files, and download the dependencies.
+# the cache will only be invalidated if package.json and/or
+# yarn.lock change
+COPY ./frontend/package.json ./frontend/yarn.lock /deps/
+WORKDIR /deps
+# we do not download dependencies in dev, because we do it when bootstraping
+# docker-compose
+RUN [ "$NODE_ENV" = 'production' ] && yarn --frozen-lockfile || echo "Environment != production: skipping download of dependencies"
+
+# copy the application code
+COPY ./frontend /app
+
+# move deps files back into the source tree
+RUN if [ "$NODE_ENV" = 'production' ]; then mv -f package.json /app && mv -f yarn.lock /app && rm /app/node_modules -rf  && mv node_modules /app/ && rmdir /deps; else echo  "No dependencies to move"; fi
+
+WORKDIR /app
 
 ARG NEXT_PUBLIC_GRAPHQL_ENDPOINT
 ENV NEXT_PUBLIC_GRAPHQL_ENDPOINT ${NEXT_PUBLIC_GRAPHQL_ENDPOINT}
 RUN echo 'NEXT_PUBLIC_GRAPHQL_ENDPOINT set to '${NEXT_PUBLIC_GRAPHQL_ENDPOINT}
 
+ARG BUILD_COMMAND
+ENV BUILD_COMMAND ${BUILD_COMMAND}
+RUN echo 'BUILD_COMMAND set to '${BUILD_COMMAND}
 
-RUN [ "$NODE_ENV" = 'production' ] && yarn --frozen-lockfile || yarn
-
-# copy the application code
-COPY ./frontend /app
-
-# copy deps files back into the source tree
-RUN [ "$NODE_ENV" = 'production' ] &&  mv -f package.json /app && mv -f yarn.lock /app && rm /app/node_modules -rf  && mv node_modules /app/ && rmdir /deps
-
-WORKDIR /app
-
-RUN if [ "$NODE_ENV" = 'production' ]; then $BUILD_COMMAND || echo 'Skipping export'; fi
+RUN if [ "$NODE_ENV" = 'production' ]; then sh -c "$BUILD_COMMAND"; else echo 'Skipping export'; fi
