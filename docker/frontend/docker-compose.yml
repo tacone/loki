@@ -25,7 +25,7 @@ services:
     volumes:
       - ./data/node/npm:/root/.npm
       - /tmp/survey/frontend:/tmp
-
+      - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
       - frontend-static:/static
 
     environment:
@@ -36,14 +36,7 @@ services:
     working_dir: /app
     command: >-
       sh -c '
-      set -x
-      && ( test $$STATIC_FOLDER || (echo "STATIC_FOLDER variable is empty" && false ))
-      && mkdir -p /static/current
-      && rm -rf /static/previous
-      && rm -rf /static/next
-      && cp -Rp $$STATIC_FOLDER /static/next
-      && mv /static/current /static/previous
-      && mv /static/next /static/current
+      install-files /app/.next/static /static
       && yarn run start
       '
     ports:
