@@ -3,7 +3,6 @@
 # --- use these script to update a volume shared with another container
 #     replacing all the files with the minumum downtime possible.
 
-set -x
 set -e
 
 usage() {
