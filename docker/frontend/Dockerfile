@@ -18,6 +18,9 @@ WORKDIR /deps
 # docker-compose
 RUN [ "$NODE_ENV" = 'production' ] && yarn --frozen-lockfile || echo "Environment != production: skipping download of dependencies"
 
+# copy utility scripts
+COPY ./scripts/bin/brotli-compress /usr/local/bin/brotli-compress
+
 # copy the application code
 COPY ./frontend /app
 

@@ -1,2 +1,5 @@
+# some scripts are used during building
+!/scripts/
+
 /frontend/node_modules
 /backend/node_modules
