@@ -19,13 +19,14 @@ source $SCRIPTS/lib/make-dockerignore
 source $SCRIPTS/lib/custom-commands
 
 # allow frontend and backend folders to be read by Dockerfile(s)
-make-dockerignore frontend backend
+make-dockerignore frontend backend svelte
 
 COMMON="-f docker-compose.yml -f docker-compose.dev.yml"
 FRONTEND="-f docker/frontend/docker-compose.yml -f docker/frontend/docker-compose.dev.yml"
 BACKEND="-f docker/backend/docker-compose.yml -f docker/backend/docker-compose.dev.yml"
+SVELTE="-f docker/svelte/docker-compose.yml -f docker/svelte/docker-compose.dev.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
 
 handle-custom-commands "$@"
 
-docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES "$@"
+docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $SVELTE "$@"
