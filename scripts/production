@@ -27,6 +27,8 @@ BACKEND="-f docker/backend/docker-compose.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml"
 NGINX="-f docker/nginx/docker-compose.yml"
 
+FEATURES="-f docker/_features/static-next/docker-compose.yml"
+
 handle-custom-commands "$@"
 
-docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $NGINX "$@"
+docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $NGINX $FEATURES "$@"
