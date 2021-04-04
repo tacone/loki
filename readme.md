@@ -7,7 +7,7 @@ A sample survey system.
 Clone the project, then run:
 
 ```shell
-scripts/dev run
+scripts/dev up
 ```
 
 When everything is up (it will take some time for the first run) these ports
