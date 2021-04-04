@@ -31,12 +31,43 @@ There is an additional command, `scripts/dev ports` that shows the configured po
 
 The database files will be written in `data/`, so you can start from scratch by deleting `data/` along with `frontend/node_modules` and `backend/node_modules`.
 
+
+## Production environment
+
+To run the production environment, write:
+
+```shell
+scripts/production --build up
+```
+
+You should then access the frontend using [https://localhost:7443](https://localhost:7443).
+
+> **Heads up!**
+>
+> You should always build when switching from dev to production mode.
+>
+> Also, since the application building process runs while building
+> the docker container, you need to build the containers to have the
+> latest changes applied.
+>
+> Summing up, **when you start the production environment, build**.
+
+The production environment features:
+
+- a container with Nginx webserver, exposing *HTTP* (7080) and *HTTPS* (7443) ports. HTTP/2 enabled. Capable of *gzip* and *brotli* compression.
+- the postgres DB does not expose a public port while using the production envinroment.
+- the GraphQL backend, will not expose the development console. The typescript source will be transpiled to javascript during build.
+- the frontend is exported to a static website. All the files are pre-compressed with *brotli* during build. All timestamped files have far future expiration headers to allow proxy caching.
+
+Please note that, at this time, frontend and backend still keep publishing their own ports (7000, 7001).
+
 ## Stack
 
 The stack consists of a few docker containers.
 
 **Frontend:**
 
+- Nginx
 - Node
 - NextJS
 - React
@@ -75,6 +106,7 @@ The good old postgres.
 
 ## Filesystem Layout
 
+- `config/` : use this directory to store your configs
 - `data/` : the db data, and npm cache is saved here
 - `docker/` : the docker-compose files for the various containers
 - `frontend/` : the frontend application code
@@ -85,8 +117,6 @@ The good old postgres.
 
 TypeORM is very nice but some parts of it are prone to SQL Injection so
 additional care is needed.
-
-There is no production environment.
 
 The referrer URL is read at the first landing on the /quiz page. After
 that is stored in a query variable. This makes it more solid than using
