@@ -16,7 +16,8 @@ COPY ./svelte/package.json ./svelte/yarn.loc[k] /deps/
 WORKDIR /deps
 # we do not download dependencies in dev, because we do it when bootstraping
 # docker-compose
-RUN [ "$NODE_ENV" = 'production' ] && yarn --frozen-lockfile || echo "Environment != production: skipping download of dependencies"
+# (we need to use the dev deps because of https://github.com/sveltejs/sapper/issues/592)
+RUN [ "$NODE_ENV" = 'production' ] && NODE_ENV=develpment yarn --frozen-lockfile || echo "Environment != production: skipping download of dependencies"
 
 # copy utility scripts
 COPY ./scripts/bin/brotli-compress /usr/local/bin/brotli-compress
