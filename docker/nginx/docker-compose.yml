@@ -16,6 +16,7 @@ services:
       - ./config/nginx/self-signed-certs/nginx-selfsigned.key:/etc/ssl/private/default.key:ro
 
       - frontend-static:/static
+      - svelte-static:/static-svelte
       # - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
 
   # # nginx-dockergen:

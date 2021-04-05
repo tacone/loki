@@ -10,9 +10,9 @@ services:
         # IMPORTANT: we need to specify all the env needed by the build
         # either here AND in the Dockerfile :(
 
-        __BUILD_COMMAND: >-
+        BUILD_COMMAND: >-
           yarn run build
-          && brotli-compress /app/.next/static
+          && brotli-compress /app/build/assets
         NODE_ENV: production
         GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
     restart: "always"
@@ -20,7 +20,7 @@ services:
       - ./data/node/npm:/root/.npm
       - /tmp/survey/svelte:/tmp
       - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
-      - svelte-static:/static
+      - svelte-static:/static-svelte
 
     environment:
       - NODE_ENV=production
@@ -29,7 +29,7 @@ services:
     working_dir: /app
     command: >-
       sh -c '
-        yarn run start
+        install-files /app/build/assets /static-svelte && yarn run start
       '
     ports:
       - ${SVELTE_PORT:-7002}:3000
