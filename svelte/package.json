@@ -8,7 +8,7 @@
 		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
 		"format": "prettier --write ."
 	},
-	"dependencies": {
+	"devDependencies": {
 		"@sveltejs/adapter-node": "next",
 		"@sveltejs/kit": "next",
 		"svelte": "^3.29.0",
