@@ -1,4 +1,5 @@
-import humanizeString from "humanize-string";
+import humanizeString from "utils/humanize-string";
+
 import React from "react";
 
 function Result({ name, records }) {
