@@ -28,7 +28,7 @@ POSTGRES="-f docker/postgres/docker-compose.yml"
 SVELTE="-f docker/svelte/docker-compose.yml"
 NGINX="-f docker/nginx/docker-compose.yml"
 
-FEATURES="-f docker/_features/static-next/docker-compose.yml"
+FEATURES="-f docker/_features/static-next/docker-compose.yml -f docker/_features/static-svelte/docker-compose.yml"
 
 handle-custom-commands "$@"
 

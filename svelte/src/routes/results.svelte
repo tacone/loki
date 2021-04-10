@@ -1,7 +1,7 @@
 <script>
-	import { browser } from '$app/env';
 	import Grid from '$lib/Grid.svelte';
 	import Result from '$lib/Result.svelte';
+
 
 	let data = {
 		age: [
