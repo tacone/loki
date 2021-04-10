@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-alpine
 
 # we need it to brotli compress the static export
 RUN apk add brotli
