@@ -17,7 +17,7 @@ services:
         NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
     restart: "always"
     volumes:
-      - ./data/node/npm:/root/.npm
+      - ./data/yarn:/usr/local/share/.cache/yarn/
       - /tmp/survey/frontend:/tmp
       - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
       - frontend-static:/static
