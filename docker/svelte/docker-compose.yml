@@ -14,7 +14,7 @@ services:
           yarn run build
           && brotli-compress /app/build/assets
         NODE_ENV: production
-        GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+        VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
     restart: "always"
     volumes:
       - ./data/yarn:/usr/local/share/.cache/yarn/
@@ -24,7 +24,7 @@ services:
 
     environment:
       - NODE_ENV=production
-      - GRAPHQL_ENDPOINT
+      - VITE_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
       - NEXT_TELEMETRY_DISABLED=1
     working_dir: /app
     command: >-
