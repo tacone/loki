@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "svelte-kit dev --host 0.0.0.0",
 		"build": "svelte-kit build",
-		"export": "rm export/ -rf; STATIC_WEBSITE=1 svelte-kit build; mv export/assets/* export; rmdir export/assets; yarn run minify-export",
+		"export": "rm export/ -rf; STATIC_WEBSITE=1 svelte-kit build && mv export/assets/* export && rmdir export/assets && yarn run minify-export",
 		"minify-export": "find export -name '*.html' | xargs -n1 -I{} node_modules/.bin/html-minifier --collapse-whitespace --remove-comments --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --removeStyleLinkTypeAttributes --removeScriptTypeAttributes --use-short-doctype --minify-css true --minify-js true --output {} {}",
 		"start": "svelte-kit start --host 0.0.0.0",
 		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
