@@ -4,7 +4,7 @@ This is a sample frontend service featuring:
 
 - NodeJs
 - NextJs
-- React
+- Preact
 - Apollo Client (GraphQl)
 - Final Form
 - Bootstrap 4 (SCSS)
@@ -21,7 +21,7 @@ The static feature also include far expire headings for every filename that incl
 
 ## NextJS
 
-This is your friendly neighborhood NextJs, with its reassuringly default configuration.
+This is your friendly neighborhood NextJs, configured to use Preact.
 
 ## Nginx
 
