@@ -818,6 +818,11 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+lodash-es@^4.0.0:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
@@ -1171,10 +1176,18 @@ svelte-preprocess@^4.0.0:
     detect-indent "^6.0.0"
     strip-indent "^3.0.0"
 
-svelte@^3.29.0:
+svelte@^3.23.0, svelte@^3.29.0:
   version "3.37.0"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.37.0.tgz#dc7cd24bcc275cdb3f8c684ada89e50489144ccd"
   integrity sha512-TRF30F4W4+d+Jr2KzUUL1j8Mrpns/WM/WacxYlo5MMb2E5Qy2Pk1Guj6GylxsW9OnKQl1tnF8q3hG/hQ3h6VUA==
+
+sveltik@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/sveltik/-/sveltik-0.1.16.tgz#cdf8667ad4eb9253607c5b293157b5378aa00d16"
+  integrity sha512-TWJhF48zijTVPqr0nCKFH4Y0DqLmqnXxQh4eqPMVwRNGInwt2JXVt98QS4LySjOwAiGL/Xfn+6LScIm9SxNjLg==
+  dependencies:
+    lodash-es "^4.0.0"
+    svelte "^3.23.0"
 
 table@^6.0.4:
   version "6.0.9"
