@@ -32,6 +32,4 @@ make-dockerignore() {
     echo "# --- common ignores" >> $f
     cat $ROOT/.common.dockerignore >> $f
     echo >> $f
-
-    echo
 }
