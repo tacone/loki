@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  svelte:
+    restart: "no"
+    build:
+      args:
+        - BUILD_COMMAND=
+        - NODE_ENV=development
+    volumes:
+      - ./svelte:/app
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 24678:24678
+    # in development mode we mount the source folder as a volume
+    # and download the depencencies there so they can be parsed
+    # by the IDE
+    command: sh -c "yarn && yarn run dev"

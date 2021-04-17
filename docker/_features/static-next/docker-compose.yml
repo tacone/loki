@@ -1,0 +1,24 @@
+version: "3.4"
+
+ # will export the sapper app as static files on build
+ # and make nginx serve them directly
+
+services:
+  nginx-proxy:
+    volumes:
+      - ./docker/_features/static-next/static-next.conf:/etc/nginx/conf.d/default.conf:ro
+  frontend:
+    restart: "on-failure"
+    build:
+      args:
+        # this arg is handled in sapper's Dockerfile
+        # notice we build gzip and brotli versions of each file
+        BUILD_COMMAND: >-
+          yarn run build
+          && yarn run export
+          && brotli-compress /app/out
+    command: >-
+      sh -c '
+      install-files /app/out /static
+      && echo static website published with success, exiting.
+      '

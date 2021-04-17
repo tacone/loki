@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# --- use these script to update a volume shared with another container
+#     replacing all the files with the minumum downtime possible.
+
+set -ex
+
+usage() {
+  test "$2" && echo "Error: $2" && echo
+
+  cat <<EOF
+Usage: $(basename "$0") SOURCE DESTINATION
+
+Description:
+
+     Copy a directory to a shared volume and replace them with the shortest switch time possible.
+
+Example:
+
+    # copy /var/www/images contents under /images/current
+
+    $(basename "$0") /var/www/images /images
+
+EOF
+  exit $1
+}
+
+_install_files () {
+    SOURCE=$1
+    DESTINATION=$2
+    NEXT=$DESTINATION/next
+    PREVIOUS=$DESTINATION/previous
+    CURRENT=$DESTINATION/current
+    test $SOURCE || usage 1 "SOURCE argument is empty"
+    test $DESTINATION || usage 1 "DESTINATION argument is empty"
+
+    # create the current, previous and next paths in case they exist to
+    # avoid surprises
+    mkdir -p $CURRENT
+    rm -rf $PREVIOUS
+    rm -rf $NEXT
+
+    # copy the file to the next path
+    cp -Rp $SOURCE $NEXT
+
+    # swiftly rename current to previous and next to current
+    mv $CURRENT $PREVIOUS
+    mv $NEXT $CURRENT
+
+    # clean up
+    rm -rf $PREVIOUS
+}
+
+_install_files "$@"

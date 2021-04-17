@@ -1,0 +1,23 @@
+version: "3.4"
+
+ # will export the sapper app as static files on build
+ # and make nginx serve them directly
+
+services:
+  nginx-proxy:
+    volumes:
+      - ./docker/_features/static-svelte/static-svelte.conf:/etc/nginx/conf.d/svelte.conf:ro
+  svelte:
+    restart: "on-failure"
+    build:
+      args:
+        # this arg is handled in sapper's Dockerfile
+        # notice we build gzip and brotli versions of each file
+        BUILD_COMMAND: >-
+          yarn run export
+          && brotli-compress /app/export
+    command: >-
+      sh -c '
+      install-files /app/export /static-svelte
+      && echo static website published with success, exiting.
+      '

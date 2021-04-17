@@ -1,6 +1,6 @@
-import humanizeString from "humanize-string";
 import React from "react";
 import { Field } from "react-final-form";
+import humanizeString from "utils/humanize-string";
 
 function CheckboxFieldset(field) {
   return (

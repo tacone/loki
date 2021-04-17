@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  svelte:
+    image: survey-node-svelte
+    build:
+      context: ./
+      dockerfile: ./docker/svelte/Dockerfile
+      args:
+        # IMPORTANT: we need to specify all the env needed by the build
+        # either here AND in the Dockerfile :(
+
+        BUILD_COMMAND: >-
+          yarn run build
+          && brotli-compress /app/build/assets
+        NODE_ENV: production
+        VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+    restart: "always"
+    volumes:
+      - ./data/yarn:/usr/local/share/.cache/yarn/
+      - /tmp/survey/svelte:/tmp
+      - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
+      - svelte-static:/static-svelte
+
+    environment:
+      - NODE_ENV=production
+      - VITE_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
+      - NEXT_TELEMETRY_DISABLED=1
+    working_dir: /app
+    command: >-
+      sh -c '
+        install-files /app/build/assets /static-svelte && yarn run start
+      '
+    ports:
+      - ${SVELTE_PORT:-7002}:3000
+
+volumes:
+  # we need to set up a volume so nginx sees the compiled files from sapper
+  svelte-static:

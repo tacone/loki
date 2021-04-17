@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# --- use these script to update a volume shared with another container
+#     replacing all the files with the minumum downtime possible.
+
+set -e
+
+usage() {
+  test "$2" && echo "Error: $2" && echo
+
+  cat <<EOF
+Usage: $(basename "$0") DIRECTORY
+
+Description:
+
+     Recursively compress all files in a directory with brotli, skipping
+     already compressed files.
+
+Example:
+
+    $(basename "$0") /var/www/html
+
+EOF
+  exit $1
+}
+
+_brotli_compress () {
+    DIRECTORY=$1
+    test $DIRECTORY || usage 1 "DIRECTORY argument is empty"
+
+    echo
+    echo "Compressing the build with brotli ..."
+    time -f "Done in %e seconds." sh -c "find $DIRECTORY -type f \
+    | grep -v '\.br$' \
+    | grep -v '\.gz$' \
+    | tr '\n' '\0' \
+    | xargs -n1 -0 brotli"
+}
+
+_brotli_compress "$@"

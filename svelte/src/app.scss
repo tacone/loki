@@ -1,0 +1,25 @@
+@import './styles/bootstrap.scss';
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+	margin-top: 30px;
+}
+
+.logo {
+	position: relative;
+	top: -10px;
+	width: 300px;
+	margin-right: 30px;
+}
+
+.page-title,
+.results-table {
+	margin-bottom: 30px;
+}
+
+.numericColumn {
+	text-align: right;
+}
