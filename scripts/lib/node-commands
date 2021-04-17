@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# custom commands for node
+
+handle-node-help() {
+    echo "Node Commands:"
+    echo -e "$1"
+}
+
+handle-node-commands () {
+    local custom_commands;
+
+    custom_commands="$custom_commands  yarn | y           Execute yarn\n";
+
+    if [ "$1" = "y" ] || [ "$1" = "yarn" ]; then
+        $DO run $2 yarn "${@:3}"
+        exit 0;
+    fi;
+
+    [ -z "$1" ] || [ "$1" = "HELP" ] && [ -z "$2" ] && handle-node-help "$custom_commands"
+
+}

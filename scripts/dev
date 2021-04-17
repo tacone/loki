@@ -12,11 +12,13 @@
 # ------------------------------------------------------------------
 
 SCRIPTS=$(dirname "$0")
+DO=$(basename "$0")
 ROOT=$(realpath $SCRIPTS/..)
 
 source $SCRIPTS/lib/config
 source $SCRIPTS/lib/make-dockerignore
 source $SCRIPTS/lib/custom-commands
+source $SCRIPTS/lib/node-commands
 
 # allow frontend and backend folders to be read by Dockerfile(s)
 make-dockerignore frontend backend svelte
@@ -28,5 +30,7 @@ SVELTE="-f docker/svelte/docker-compose.yml -f docker/svelte/docker-compose.dev.
 POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
 
 handle-custom-commands "$@"
+handle-node-commands "$@"
+[ $STOP ] && exit 0
 
 docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $SVELTE "$@"
