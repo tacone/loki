@@ -23,3 +23,11 @@ body {
 .numericColumn {
 	text-align: right;
 }
+
+form {
+	.error {
+		margin-top: 5px;
+		color: #900;
+		// font-size: 90%;
+	}
+}

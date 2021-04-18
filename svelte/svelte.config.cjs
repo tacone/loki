@@ -1,6 +1,6 @@
 const sveltePreprocess = require('svelte-preprocess');
 const pkg = require('./package.json');
-const { join } = require('path');
+const { join, resolve } = require('path');
 
 let adapter;
 
@@ -50,6 +50,11 @@ module.exports = {
 		vite: {
 			ssr: {
 				noExternal: Object.keys(pkg.dependencies || {})
+			},
+			resolve: {
+				alias: {
+					$utils: resolve(__dirname, './src/utils')
+				}
 			}
 		}
 	}

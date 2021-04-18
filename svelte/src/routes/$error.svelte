@@ -3,8 +3,11 @@
 	export let error;
 
 	import '../app.scss';
+
+	const message= error?.message ?? 'Unknown error'
+
 </script>
 
-<h1>{status}</h1>
-<p>{error.message}</p>
+<h1>{status || 'Error'}</h1>
+<p>{message}</p>
 
