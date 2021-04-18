@@ -38,6 +38,18 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@felte/common@^0.3.7":
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/@felte/common/-/common-0.3.7.tgz#136cb4ad36a05252154a38b8d55f5d07007beed9"
+  integrity sha512-xVmyA9nQig3BkOusPwJj+XatXWlgsL4b7IJhT8V0GSfiekpFtEzlV2KL9g7w+EQ75x//Bm7fj839nVW8hwHlZA==
+
+"@felte/reporter-dom@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@felte/reporter-dom/-/reporter-dom-0.2.0.tgz#32fd2fb57bab5ea14ebdd6cf29b64c59873f6e0f"
+  integrity sha512-UgHuWml5Npji8cwYW4Q/vGw7BAk5xvUNKg3inqnKWztaiE5UGHf6THYtWdaM7nwa/1lHkxGTKqGYyJvkxu5uww==
+  dependencies:
+    "@felte/common" "^0.3.7"
+
 "@minify-html/js@^0.4.6":
   version "0.4.10"
   resolved "https://registry.yarnpkg.com/@minify-html/js/-/js-0.4.10.tgz#ecf84017bd1e7df632d2124642c1fbd8da5a9b18"
@@ -368,6 +380,11 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
+email-validator@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/email-validator/-/email-validator-2.0.4.tgz#b8dfaa5d0dae28f1b03c95881d904d4e40bfe7ed"
+  integrity sha512-gYCwo7kh5S3IDyZPLZf6hSS0MnZT8QmJFqYvbqlDZSbwdZlY6QZWxJ4i/6UhITOJ4XzyI647Bm2MXKCLqnJ4nQ==
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -535,6 +552,13 @@ fast-levenshtein@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+
+felte@^0.6.8:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/felte/-/felte-0.6.8.tgz#dfee58db851564ddd3779d29baf1f11f8504962a"
+  integrity sha512-c9FD9AvGJKncdxcIqGS3+RMRt2alfhp+SqXB/Bt9r6Zb9LuilPlsxz29niUGb+MPdfxxGuowW+rymxwSjbUuwg==
+  dependencies:
+    "@felte/common" "^0.3.7"
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
