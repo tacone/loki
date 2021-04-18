@@ -2,7 +2,7 @@
 	import Form from '../svelte-forms/index';
 	import undot from '$utils/objects/undot';
 	import Field from './Field.svelte';
-import dot from '$utils/objects/dot';
+	import dot from '$utils/objects/dot';
 
 	let values;
 
@@ -22,13 +22,15 @@ import dot from '$utils/objects/dot';
 				type="button"
 				on:click={() => {
 					values = { ciaone: 'reset' };
-				}}>reset</button>
+				}}>reset</button
+			>
 
 			<button
 				type="button"
 				on:click={() => {
 					console.log('values', values);
-				}}>go</button>
+				}}>go</button
+			>
 		</div>
 	</Form>
 
