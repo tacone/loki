@@ -83,19 +83,16 @@ const Survey = ({ referrer }) => {
           )}
           <Fieldset
             name="name"
-            field={<input type="text" />}
             validate={validateRequired}
           ></Fieldset>
 
           <Fieldset
             name="email_address"
-            field={<input type="text" />}
             validate={composeValidators(validateRequired, validateEmail)}
           ></Fieldset>
 
           <Fieldset
             name="age"
-            field={<input type="text" />}
             validate={composeValidators(validateNumber)}
           ></Fieldset>
 

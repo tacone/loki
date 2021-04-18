@@ -18,6 +18,7 @@ export { CheckboxFieldset };
 function Fieldset({ name, field, label, validate, tagName }) {
   label = label || humanizeString(name);
   const id = `_survey_${name}`;
+  field = field || <input type="text" />
 
   return (
     <div className="form-group row">
