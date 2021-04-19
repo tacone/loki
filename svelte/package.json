@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {
 		"@minify-html/js": "^0.4.6",
-		"@sveltejs/adapter-node": "next",
+		"@sveltejs/adapter-node": "^1.0.0-next.16",
 		"@sveltejs/kit": "^1.0.0-next.77",
 		"email-validator": "^2.0.4",
 		"eslint": "^7.22.0",
