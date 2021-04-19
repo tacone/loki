@@ -1,22 +1,74 @@
 <script>
-	import { createForm } from 'felte';
-	import Field from './Field.svelte';
-	import reporterDom from '@felte/reporter-dom';
 	import { composeValidators, isEmail, isRequired, mapValidators } from '$utils/validators';
+	import reporterDom from '@felte/reporter-dom';
+	import { createForm } from 'felte';
+	import { request } from 'graphql-request';
+	import Field from './Field.svelte';
+	import { goto, prefetch, prefetchRoutes } from '$app/navigation';
 
+	const mutation = `
+		mutation(
+			$name: String!
+			$email_address: String!
+			$age: Int
+			$gender: String
+			$country: String
+			$experience_rating: Int
+			$suggested_improvements: String
+			$referrer: String
+		) {
+			create_submission(
+				data: {
+					name: $name
+					email_address: $email_address
+					age: $age
+					gender: $gender
+					country: $country
+					experience_rating: $experience_rating
+					suggested_improvements: $suggested_improvements
+					referrer: $referrer
+				}
+			) {
+				id
+			}
+		}
+	`;
+
+	let formError = '';
 	const { form, data, errors, isValid, isSubmitting } = createForm({
+		extend: reporterDom({
+			single: true
+		}),
+		onError: (error) => {
+			console.error(error);
+			formError = 'Could not save';
+		},
 		validate: mapValidators({
 			name: isRequired,
 			email_address: composeValidators(isRequired, isEmail)
 		}),
 
-		extend: reporterDom({
-			single: true
-		}),
-
 		onSubmit: async (values) => {
-			alert(JSON.stringify(values));
-			/* call to an api */
+			formError = '';
+
+			const variables = { ...values, referrer: document.referrer };
+			for (let k in variables) {
+				let v = variables[k];
+				if (v === '') {
+					v = null;
+				} else {
+					if (!isNaN(v)) {
+						v = parseInt(v);
+					}
+				}
+
+				variables[k] = v;
+			}
+
+			const endpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
+			await request(endpoint, mutation, variables);
+
+			goto('/thank-you', true);
 		}
 	});
 	// $: console.log('form', form);
@@ -25,6 +77,9 @@
 </script>
 
 <form use:form>
+	{#if formError}
+		<div class="alert alert-danger">{formError}</div>
+	{/if}
 	<Field name="name" />
 	<Field name="email_address" />
 	<Field name="age" />
@@ -44,7 +99,7 @@
 	</Field>
 	<Field name="suggested_improvements" tag="textarea" />
 
-	<input type="submit" value="Sign in" disabled={!$isValid  || $isSubmitting} />
+	<input type="submit" value="Sign in" disabled={!$isValid || $isSubmitting} />
 </form>
 
 <pre>{JSON.stringify($data, undefined, 2)}</pre>

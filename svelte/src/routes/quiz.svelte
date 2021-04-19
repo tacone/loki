@@ -1,35 +1,5 @@
 <script>
-	// import { browser } from '$app/env';
 	import Survey from '$lib/Survey.svelte';
-
-	// import { request } from 'graphql-request';
-
-	const query = `
-		query {
-			submission_statistics {
-				age {
-					value
-					count
-					ratio
-				}
-				experience_rating {
-					value
-					count
-					ratio
-				}
-				country {
-					value
-					count
-					ratio
-				}
-				gender {
-					value
-					count
-					ratio
-				}
-				total_submissions
-			}
-		}`;
 </script>
 
 <main>
@@ -44,6 +14,3 @@
 
 	<Survey />
 </main>
-
-<style lang="scss">
-</style>
