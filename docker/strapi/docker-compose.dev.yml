@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  strapi:
+    restart: "no"
+    build:
+      args:
+        - BUILD_COMMAND=
+        - NODE_ENV=development
+    volumes:
+      - ./strapi:/app
+    environment:
+      - NODE_ENV=development
+    # in development mode we mount the source folder as a volume
+    # and download the depencencies there so they can be parsed
+    # by the IDE
+    #
+    # for development flexibility we only run migrations only if they have not been
+    # set up yet (first run)
+    command: sh -c "yarn && wait-port postgres 5432 && echo here-we-should-do-migrations && yarn run dev"

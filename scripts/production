@@ -21,7 +21,7 @@ source $SCRIPTS/lib/custom-commands
 source $SCRIPTS/lib/node-commands
 
 # allow frontend and backend folders to be read by Dockerfile(s)
-make-dockerignore frontend backend svelte
+make-dockerignore frontend backend svelte strapi
 
 COMMON="-f docker-compose.yml"
 FRONTEND="-f docker/frontend/docker-compose.yml"
@@ -29,6 +29,7 @@ BACKEND="-f docker/backend/docker-compose.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml"
 SVELTE="-f docker/svelte/docker-compose.yml"
 NGINX="-f docker/nginx/docker-compose.yml"
+STRAPI="-f docker/strapi/docker-compose.yml"
 
 FEATURES="-f docker/_features/static-next/docker-compose.yml -f docker/_features/static-svelte/docker-compose.yml"
 
@@ -36,4 +37,4 @@ handle-custom-commands "$@"
 handle-node-commands "$@"
 [ $STOP ] && exit 0
 
-docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $NGINX $SVELTE $FEATURES "$@"
+docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $NGINX $SVELTE $STRAPI $FEATURES "$@"
