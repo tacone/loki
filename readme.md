@@ -14,15 +14,15 @@ When everything is up (it will take some time for the first run) these ports
 will be exposed on your localhost:
 
 - frontend: [7000](http://localhost:7000)
-- backend: [7001](http://localhost:7001)
-- postgres: 7010
+- backend: [7011](http://localhost:7011)
+- postgres: 7040
 
 To connect with postgres use:
 
 - user: `postgres`
 - password: `postgrespassword`
 - host: `localhost`
-- port: `7010`
+- port: `7040`
 
 The `scripts/dev` script wraps `docker-compose` so you can use it in the same
 way (i.e. `scripts/dev build`, `scripts/dev down`, `scripts/dev ps`).
@@ -59,7 +59,7 @@ The production environment features:
 - the GraphQL backend, will not expose the development console. The typescript source will be transpiled to javascript during build.
 - the frontend is exported to a static website. All the files are pre-compressed with *brotli* during build. All timestamped files have far future expiration headers to allow proxy caching.
 
-Please note that, at this time, frontend and backend still keep publishing their own ports (7000, 7001).
+Please note that, at this time, frontend and backend still keep publishing their own ports (7000, 7011).
 
 ## Stack
 
@@ -98,7 +98,7 @@ TypeGraphQL to reduce the boilerplate.
 
 At the first-run, db migrations are automatically run.
 
-The port 7001 exposes a [GraphQL Console](http://localhost:7001).
+The port 7011 exposes a [GraphQL Console](http://localhost:7011).
 
 ### Database
 

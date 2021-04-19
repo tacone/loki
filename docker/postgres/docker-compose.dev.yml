@@ -4,4 +4,4 @@ services:
   postgres:
     restart: "no"
     ports:
-      - ${POSTGRES_PORT:-7010}:5432
+      - ${POSTGRES_PORT:-7040}:5432
