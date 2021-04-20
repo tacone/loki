@@ -3,10 +3,10 @@ version: "3.4"
  # See: https://github.com/nginx-proxy/nginx-proxy
 
 services:
-  nginx-proxy:
+  nginx:
     # just like the usual nginx image, but brotli enabled
     image: fholzer/nginx-brotli
-    container_name: nginx-proxy
+    container_name: nginx
     ports:
       - "7080:80"
       - "7443:443"
@@ -22,10 +22,10 @@ services:
   # # nginx-dockergen:
   #   image: jwilder/docker-gen
   #   container_name: nginx-dockergen
-  #   command: -notify-sighup nginx-proxy -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+  #   command: -notify-sighup nginx -watch /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
   #   volumes_from:
-  #     - nginx-proxy
-  #     - nginx-proxy-letsencrypt
+  #     - nginx
+  #     - nginx-letsencrypt
   #   volumes:
   #     - /var/run/docker.sock:/tmp/docker.sock:ro
   #     - ./docker/nginx/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl

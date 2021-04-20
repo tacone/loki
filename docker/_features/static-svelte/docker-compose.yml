@@ -4,7 +4,7 @@ version: "3.4"
  # and make nginx serve them directly
 
 services:
-  nginx-proxy:
+  nginx:
     volumes:
       - ./docker/_features/static-svelte/static-svelte.conf:/etc/nginx/conf.d/svelte.conf:ro
   svelte:
