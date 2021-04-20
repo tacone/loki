@@ -4,7 +4,7 @@ version: "3.4"
  # and make nginx serve them directly
 
 services:
-  nginx-proxy:
+  nginx:
     volumes:
       - ./docker/_features/static-next/static-next.conf:/etc/nginx/conf.d/default.conf:ro
   frontend:
