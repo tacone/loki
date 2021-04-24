@@ -4,3 +4,6 @@
 /frontend/node_modules
 /backend/node_modules
 /svelte/node_modules
+
+!/docker/nginx/config
+!/docker/nginx/src

@@ -5,7 +5,10 @@ version: "3.4"
 services:
   nginx:
     # just like the usual nginx image, but brotli enabled
-    image: fholzer/nginx-brotli
+    image: nginx-brotli-jwt
+    build:
+      context: ./
+      dockerfile: ./docker/nginx/Dockerfile
     container_name: nginx
     ports:
       - "7080:80"
