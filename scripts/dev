@@ -28,9 +28,10 @@ FRONTEND="-f docker/frontend/docker-compose.yml -f docker/frontend/docker-compos
 BACKEND="-f docker/backend/docker-compose.yml -f docker/backend/docker-compose.dev.yml"
 SVELTE="-f docker/svelte/docker-compose.yml -f docker/svelte/docker-compose.dev.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
+AUTH="-f docker/auth/docker-compose.yml -f docker/auth/docker-compose.dev.yml"
 
 handle-custom-commands "$@"
 handle-node-commands "$@"
 [ $STOP ] && exit 0
 
-docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $SVELTE "$@"
+docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $SVELTE $AUTH  "$@"

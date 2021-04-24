@@ -1,0 +1,35 @@
+version: '3.4'
+
+# Netlify GoTrue: https://github.com/netlify/gotrue
+#
+# Test it with: https://gotruejs-playground.netlify.app
+#
+# NOTE: you have to run migrations manually at least one time!
+# do it with `gotrue migrate`
+# NOTE: migrations always run on the "auth" schema (it's hardcoded in the file)
+
+services:
+    auth:
+        image: websublime/gotrue:latest
+        environment:
+            GOTRUE_JWT_SECRET: ${AUTH_JWT_SECRET} # has to be at least 32 character
+            GOTRUE_JWT_EXP: 3600
+            GOTRUE_JWT_DEFAULT_GROUP_NAME: authenticated
+            GOTRUE_DB_DRIVER: postgres
+            DB_NAMESPACE: auth
+            API_EXTERNAL_URL: localhost
+            GOTRUE_API_HOST: 0.0.0.0
+            PORT: 9999
+            GOTRUE_DISABLE_SIGNUP: 'false'
+            GOTRUE_SITE_URL: localhost
+            GOTRUE_MAILER_AUTOCONFIRM: 'true'
+            GOTRUE_LOG_LEVEL: DEBUG
+            GOTRUE_OPERATOR_TOKEN: ${AUTH_OPERATOR_TOKEN}
+            DATABASE_URL: ${POSTGRES_DATABASE_URL}
+
+        volumes:
+          # custom migrations for postgres
+          - ./config/auth/migrations:/usr/local/etc/gotrue/migrations:ro
+
+        ports:
+            - ${AUTH_PORT:-7012}:9999

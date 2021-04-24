@@ -29,6 +29,7 @@ BACKEND="-f docker/backend/docker-compose.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml"
 SVELTE="-f docker/svelte/docker-compose.yml"
 NGINX="-f docker/nginx/docker-compose.yml"
+AUTH="-f docker/auth/docker-compose.yml"
 
 FEATURES="-f docker/_features/static-next/docker-compose.yml -f docker/_features/static-svelte/docker-compose.yml"
 
@@ -36,4 +37,4 @@ handle-custom-commands "$@"
 handle-node-commands "$@"
 [ $STOP ] && exit 0
 
-docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $NGINX $SVELTE $FEATURES "$@"
+docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $NGINX $SVELTE $AUTH $FEATURES "$@"
