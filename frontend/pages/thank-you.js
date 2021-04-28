@@ -6,7 +6,7 @@ export default function Home() {
   const router = useRouter();
 
   const from = router.query.from;
-  const goBackUrl = from ? from : "https://www.project.it/";
+  const goBackUrl = from ? from : "/";
   return (
     <Layout>
       <Head>
