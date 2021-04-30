@@ -8,7 +8,7 @@
 #
 # example:
 #
-# scripts/dev up
+# scripts/production up
 # ------------------------------------------------------------------
 
 SCRIPTS=$(dirname "$0")
