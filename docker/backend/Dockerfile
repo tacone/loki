@@ -1,10 +1,7 @@
 FROM node:16-alpine
 
-# we need it to brotli compress the static export
-RUN apk add brotli
-
 # copy the deps files, download and cache dependencies
-COPY ./backend/package.json ./backend/yarn.lock /deps/
+COPY ./backend/package.json ./backend/yarn.loc[k] /deps/
 
 WORKDIR /deps
 
