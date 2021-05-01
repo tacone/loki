@@ -2,11 +2,22 @@
   "name": "backend",
   "version": "0.1.0",
   "private": true,
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
+    "dev": "nodemon -w src --exec node src/index.js",
+    "start": "node src/index.js",
+    "build": "echo TODO: do we need build?",
+    "check-migrations": "echo TODO: implement check-migrations",
+    "run-migrations": "echo TODO: impement run-migrations"
   },
   "dependencies": {
+    "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "polka": "^0.5.2",
+    "postgraphile": "^4.11.0",
+    "postgraphile-plugin-connection-filter": "^2.2.1"
   },
   "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
