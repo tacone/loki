@@ -1,13 +1,36 @@
+import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
+import { makeWrapResolversPlugin } from "graphile-utils";
 import polka from "polka";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
-import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
+
+// --- example: log before and after each mutation runs
+//
+// const mutationWrapper = makeWrapResolversPlugin(
+//   (context) => {
+//     if (context.scope.isRootMutation) {
+//       return { scope: context.scope };
+//     }
+//     return null;
+//   },
+//   ({ scope }) => async (resolver, user, args, context, _resolveInfo) => {
+//     console.log(`Mutation '${scope.fieldName}' starting with arguments:`, args);
+//     const result = await resolver();
+//     console.log(`Mutation '${scope.fieldName}' result:`, result);
+//     return result;
+//   }
+// );
 
 const options = {
   watchPg: true,
   graphiql: true,
   enhanceGraphiql: true,
-  appendPlugins: [connectionFilterPlugin, simplifyInflector],
+  exportGqlSchemaPath: './generated/schema.graphql',
+  appendPlugins: [
+    connectionFilterPlugin,
+    simplifyInflector,
+    // mutationWrapper
+  ],
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
 };
