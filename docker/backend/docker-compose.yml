@@ -19,7 +19,13 @@ services:
     environment:
       - NODE_ENV=production
       - DATABASE_URL=${POSTGRES_DATABASE_URL}
+      # - SHADOW_DATABASE_URL={POSTGRES_SHADOW_DATABASE_URL}
     working_dir: /app
-    command: sh -c 'wait-port postgres 5432 && yarn run run-migrations && yarn run start'
+    command: >-
+      sh -c '
+      wait-port postgres 5432
+      && yarn run run-migrations
+      && yarn run start
+      '
     ports:
       - ${BACKEND_PORT:-7011}:3000
