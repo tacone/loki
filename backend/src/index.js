@@ -1,10 +1,10 @@
 import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
-import { makeWrapResolversPlugin } from "graphile-utils";
-import polka from "polka";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
 
 // --- example: log before and after each mutation runs
+//
+// import { makeWrapResolversPlugin } from "graphile-utils";
 //
 // const mutationWrapper = makeWrapResolversPlugin(
 //   (context) => {
@@ -25,7 +25,7 @@ const options = {
   watchPg: true,
   graphiql: true,
   enhanceGraphiql: true,
-  exportGqlSchemaPath: './generated/schema.graphql',
+  exportGqlSchemaPath: "./generated/schema.graphql",
   appendPlugins: [
     connectionFilterPlugin,
     simplifyInflector,
@@ -35,20 +35,32 @@ const options = {
   graphileBuildOptions: { pgOmitListSuffix: true },
 };
 
-// here we use polka (see: https://github.com/lukeed/polka )
-
-polka()
-  .use(postgraphile(process.env.DATABASE_URL, "public", options))
-  .listen(process.env.PORT ?? 3000, (err) => {
-    if (err) throw err;
-    console.log(`> Running on localhost:3000`);
-  });
-
-// --- This is the default approach of postgraphile, which is *slightly* faster
+// ====================== HTTP Server ======================
 //
-// const http = require("http");
-// const { postgraphile } = require("postgraphile");
+// Uncomment whatever option fits you best.
 //
-// http
-//   .createServer(postgraphile(process.env.DATABASE_URL, "public", options))
-//   .listen(process.env.PORT ?? 3000);
+// - Node native HTTP Server is slightly faster
+// - PolkaJs allows for routing and middleware
+//
+// ---------------------------------------------------------
+// --- Polka (see: https://github.com/lukeed/polka )
+// ---------------------------------------------------------
+//
+// import polka from "polka";
+//
+// polka()
+//   .use(postgraphile(process.env.DATABASE_URL, "public", options))
+//   .listen(process.env.PORT ?? 3000, (err) => {
+//     if (err) throw err;
+//     console.log(`> Running on localhost:3000`);
+//   });
+//
+// ---------------------------------------------------------
+// --- Node native HTTP Server
+// ---------------------------------------------------------
+
+import http from "http";
+
+http
+  .createServer(postgraphile(process.env.DATABASE_URL, "public", options))
+  .listen(process.env.PORT ?? 3000);

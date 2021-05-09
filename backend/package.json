@@ -8,11 +8,12 @@
     "dev": "nodemon -w src --exec node src/index.js",
     "start": "node src/index.js",
     "build": "echo TODO: do we need build?",
-    "check-migrations": "echo TODO: implement check-migrations",
-    "run-migrations": "echo TODO: impement run-migrations"
+    "migrations": "graphile-migrate",
+    "migrations-check": "node src/check-migrations.js"
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
+    "graphile-migrate": "^1.0.2",
     "lodash": "^4.17.21",
     "polka": "^0.5.2",
     "postgraphile": "^4.11.0",
