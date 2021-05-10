@@ -93,11 +93,12 @@
    * afterAllMigrations: actions executed once all migrations are complete.
    */
   "afterAllMigrations": [
-    // {
-    //   "_": "command",
-    //   "shadow": true,
-    //   "command": "if [ \"$IN_TESTS\" != \"1\" ]; then ./scripts/dump-db; fi",
-    // },
+    {
+       "_": "command",
+       "shadow": true,
+       // NOTE: this script does nothing when envvar `IN_TESTS` is `1`
+       "command": "node src/dump-db.js"
+    },
   ],
 
   /*

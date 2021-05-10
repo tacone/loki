@@ -1,5 +1,7 @@
 FROM node:16-alpine
 
+RUN apk add --no-cache postgresql-client
+
 # copy the deps files, download and cache dependencies
 COPY ./backend/package.json ./backend/yarn.loc[k] /deps/
 
