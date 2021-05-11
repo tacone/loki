@@ -31,7 +31,6 @@ There is an additional command, `scripts/dev ports` that shows the configured po
 
 The database files will be written in `data/`, so you can start from scratch by deleting `data/` along with `frontend/node_modules` and `backend/node_modules`.
 
-
 ## Production environment
 
 To run the production environment, write:
@@ -54,10 +53,10 @@ You should then access the frontend using [https://localhost:7443](https://local
 
 The production environment features:
 
-- a container with Nginx webserver, exposing *HTTP* (7080) and *HTTPS* (7443) ports. HTTP/2 enabled. Capable of *gzip* and *brotli* compression.
+- a container with Nginx webserver, exposing _HTTP_ (7080) and _HTTPS_ (7443) ports. HTTP/2 enabled. Capable of _gzip_ and _brotli_ compression.
 - the postgres DB does not expose a public port while using the production envinroment.
 - the GraphQL backend, will not expose the development console. The typescript source will be transpiled to javascript during build.
-- the frontend is exported to a static website. All the files are pre-compressed with *brotli* during build. All timestamped files have far future expiration headers to allow proxy caching.
+- the frontend is exported to a static website. All the files are pre-compressed with _brotli_ during build. All timestamped files have far future expiration headers to allow proxy caching.
 
 Please note that, at this time, frontend and backend still keep publishing their own ports (7000, 7011).
 
@@ -106,12 +105,14 @@ The good old postgres.
 
 ## Filesystem Layout
 
-- `config/` : use this directory to store your configs
-- `data/` : the db data, and npm cache is saved here
-- `docker/` : the docker-compose files for the various containers
-- `frontend/` : the frontend application code
-- `backend/` : the backend application code
-- `scripts/` : the starting scripts (`dev`) and everything needed to make it work
+|||
+| ----------- | --------------------------------------------------- |
+| `config/`   | use this directory to store your configs            |
+| `data/`     | the db data, and npm cache is saved here            |
+| `docker/`   | the docker-compose files for the various containers |
+| `frontend/` | the frontend application code                       |
+| `backend/`  | the backend application code                        |
+| `scripts/`  | the starting scripts (`dev`) and everything needed to make it work |
 
 ## Caveats
 
