@@ -27,9 +27,9 @@ try {
   // it sucks, but the easiest and less patchy way to achieve IF EXISTS
   // functionality in postgres is to simply handle the error.
   //
-  // | Error Code | Meaning 	          | Constant           |
+  // | Error Code | Meaning             | Constant           |
   // |------------|---------------------|--------------------|
-  // |      42P04 | DUPLICATE DATABASE 	| duplicate_database |
+  // |      42P04 | DUPLICATE DATABASE  | duplicate_database |
   //
   // see also: https://www.postgresql.org/docs/8.2/errcodes-appendix.html
 
