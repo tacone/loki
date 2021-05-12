@@ -57,20 +57,41 @@ interface Node {
   nodeId: ID!
 }
 
+"""A person's submission to the survey"""
 type Submission implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+
+  """An unique incremental ID"""
   id: Int!
+
+  """The person full name"""
   name: String!
+
+  """The person unverified email address"""
   emailAddress: String!
+
+  """The person age"""
   age: Int
+
+  """The person gender"""
   gender: String
+
+  """The country of origin"""
   country: String
+
+  """A rating from 1 to 5"""
   experienceRating: Int
+
+  """A short opinion"""
   suggestedImprovements: String
+
+  """The URL of the referring page"""
   referrer: String
+
+  """The date/time of the submission"""
   createdAt: Date!
 }
 
@@ -478,15 +499,34 @@ input CreateSubmissionInput {
 
 """An input for mutations affecting `Submission`"""
 input SubmissionInput {
+  """An unique incremental ID"""
   id: Int
+
+  """The person full name"""
   name: String!
+
+  """The person unverified email address"""
   emailAddress: String!
+
+  """The person age"""
   age: Int
+
+  """The person gender"""
   gender: String
+
+  """The country of origin"""
   country: String
+
+  """A rating from 1 to 5"""
   experienceRating: Int
+
+  """A short opinion"""
   suggestedImprovements: String
+
+  """The URL of the referring page"""
   referrer: String
+
+  """The date/time of the submission"""
   createdAt: Date
 }
 
@@ -530,15 +570,34 @@ input UpdateSubmissionByNodeIdInput {
 Represents an update to a `Submission`. Fields that are set will be updated.
 """
 input SubmissionPatch {
+  """An unique incremental ID"""
   id: Int
+
+  """The person full name"""
   name: String
+
+  """The person unverified email address"""
   emailAddress: String
+
+  """The person age"""
   age: Int
+
+  """The person gender"""
   gender: String
+
+  """The country of origin"""
   country: String
+
+  """A rating from 1 to 5"""
   experienceRating: Int
+
+  """A short opinion"""
   suggestedImprovements: String
+
+  """The URL of the referring page"""
   referrer: String
+
+  """The date/time of the submission"""
   createdAt: Date
 }
 
@@ -554,6 +613,8 @@ input UpdateSubmissionInput {
   An object where the defined keys will be set on the `Submission` being updated.
   """
   patch: SubmissionPatch!
+
+  """An unique incremental ID"""
   id: Int!
 }
 
@@ -596,5 +657,7 @@ input DeleteSubmissionInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
+
+  """An unique incremental ID"""
   id: Int!
 }
