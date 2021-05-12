@@ -116,6 +116,116 @@ COMMENT ON COLUMN public.submissions.created_at IS 'The date/time of the submiss
 
 
 --
+-- Name: age_stats; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.age_stats AS
+ SELECT s2.age AS name,
+    (count(*))::integer AS count,
+    (((count(*))::double precision * (100)::double precision) / ((1 + tot_mem.total_members))::double precision) AS percentage
+   FROM public.submissions s2,
+    ( SELECT (count(*))::integer AS total_members
+           FROM public.submissions s3) tot_mem
+  GROUP BY s2.age, tot_mem.total_members
+  ORDER BY ((count(*))::integer) DESC;
+
+
+--
+-- Name: VIEW age_stats; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW public.age_stats IS '@omit';
+
+
+--
+-- Name: country_stats; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.country_stats AS
+ SELECT s2.country AS name,
+    (count(*))::integer AS count,
+    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS percentage
+   FROM public.submissions s2,
+    ( SELECT (count(*))::integer AS total_members
+           FROM public.submissions s3) tot_mem
+  GROUP BY s2.country, tot_mem.total_members
+  ORDER BY ((count(*))::integer) DESC;
+
+
+--
+-- Name: VIEW country_stats; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW public.country_stats IS '@omit';
+
+
+--
+-- Name: experience_rating_stats; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.experience_rating_stats AS
+ SELECT s2.experience_rating AS name,
+    (count(*))::integer AS count,
+    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS percentage
+   FROM public.submissions s2,
+    ( SELECT (count(*))::integer AS total_members
+           FROM public.submissions s3) tot_mem
+  GROUP BY s2.experience_rating, tot_mem.total_members
+  ORDER BY ((count(*))::integer) DESC;
+
+
+--
+-- Name: VIEW experience_rating_stats; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW public.experience_rating_stats IS '@omit';
+
+
+--
+-- Name: gender_stats; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.gender_stats AS
+ SELECT s2.gender AS name,
+    (count(*))::integer AS count,
+    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS percentage
+   FROM public.submissions s2,
+    ( SELECT (count(*))::integer AS total_members
+           FROM public.submissions s3) tot_mem
+  GROUP BY s2.gender, tot_mem.total_members
+  ORDER BY ((count(*))::integer) DESC;
+
+
+--
+-- Name: VIEW gender_stats; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW public.gender_stats IS '@omit';
+
+
+--
+-- Name: statistics; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.statistics AS
+ SELECT a.age,
+    c.country,
+    e.experience_rating,
+    g.gender,
+    t.total_submissions
+   FROM ( SELECT array_agg(age_stats.*) AS age
+           FROM public.age_stats) a,
+    ( SELECT array_agg(country_stats.*) AS country
+           FROM public.country_stats) c,
+    ( SELECT array_agg(experience_rating_stats.*) AS experience_rating
+           FROM public.experience_rating_stats) e,
+    ( SELECT array_agg(gender_stats.*) AS gender
+           FROM public.gender_stats) g,
+    ( SELECT (count(*))::integer AS total_submissions
+           FROM public.submissions) t;
+
+
+--
 -- Name: submissions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 

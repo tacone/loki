@@ -17,6 +17,28 @@ type Query implements Node {
     nodeId: ID!
   ): Node
 
+  """Reads a set of `Statistic`."""
+  statistics(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Skip the first `n` values."""
+    offset: Int
+
+    """The method to use when ordering `Statistic`."""
+    orderBy: [StatisticsOrderBy!]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: StatisticCondition
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StatisticFilter
+  ): [Statistic!]
+
   """Reads a set of `Submission`."""
   submissions(
     """Only read the first `n` values of the set."""
@@ -55,6 +77,161 @@ interface Node {
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
   """
   nodeId: ID!
+}
+
+type Statistic {
+  age: [AgeStat]
+  country: [CountryStat]
+  experienceRating: [ExperienceRatingStat]
+  gender: [GenderStat]
+  totalSubmissions: Int
+}
+
+type AgeStat {
+  name: Int
+  count: Int
+  percentage: Float
+}
+
+type CountryStat {
+  name: String
+  count: Int
+  percentage: Float
+}
+
+type ExperienceRatingStat {
+  name: Int
+  count: Int
+  percentage: Float
+}
+
+type GenderStat {
+  name: String
+  count: Int
+  percentage: Float
+}
+
+"""Methods to use when ordering `Statistic`."""
+enum StatisticsOrderBy {
+  NATURAL
+  AGE_ASC
+  AGE_DESC
+  COUNTRY_ASC
+  COUNTRY_DESC
+  EXPERIENCE_RATING_ASC
+  EXPERIENCE_RATING_DESC
+  GENDER_ASC
+  GENDER_DESC
+  TOTAL_SUBMISSIONS_ASC
+  TOTAL_SUBMISSIONS_DESC
+}
+
+"""
+A condition to be used against `Statistic` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input StatisticCondition {
+  """Checks for equality with the object’s `age` field."""
+  age: [AgeStatInput]
+
+  """Checks for equality with the object’s `country` field."""
+  country: [CountryStatInput]
+
+  """Checks for equality with the object’s `experienceRating` field."""
+  experienceRating: [ExperienceRatingStatInput]
+
+  """Checks for equality with the object’s `gender` field."""
+  gender: [GenderStatInput]
+
+  """Checks for equality with the object’s `totalSubmissions` field."""
+  totalSubmissions: Int
+}
+
+"""An input for mutations affecting `AgeStat`"""
+input AgeStatInput {
+  name: Int
+  count: Int
+  percentage: Float
+}
+
+"""An input for mutations affecting `CountryStat`"""
+input CountryStatInput {
+  name: String
+  count: Int
+  percentage: Float
+}
+
+"""An input for mutations affecting `ExperienceRatingStat`"""
+input ExperienceRatingStatInput {
+  name: Int
+  count: Int
+  percentage: Float
+}
+
+"""An input for mutations affecting `GenderStat`"""
+input GenderStatInput {
+  name: String
+  count: Int
+  percentage: Float
+}
+
+"""
+A filter to be used against `Statistic` object types. All fields are combined with a logical ‘and.’
+"""
+input StatisticFilter {
+  """Filter by the object’s `totalSubmissions` field."""
+  totalSubmissions: IntFilter
+
+  """Checks for all expressions in this list."""
+  and: [StatisticFilter!]
+
+  """Checks for any expressions in this list."""
+  or: [StatisticFilter!]
+
+  """Negates the expression."""
+  not: StatisticFilter
+}
+
+"""
+A filter to be used against Int fields. All fields are combined with a logical ‘and.’
+"""
+input IntFilter {
+  """
+  Is null (if `true` is specified) or is not null (if `false` is specified).
+  """
+  isNull: Boolean
+
+  """Equal to the specified value."""
+  equalTo: Int
+
+  """Not equal to the specified value."""
+  notEqualTo: Int
+
+  """
+  Not equal to the specified value, treating null like an ordinary value.
+  """
+  distinctFrom: Int
+
+  """Equal to the specified value, treating null like an ordinary value."""
+  notDistinctFrom: Int
+
+  """Included in the specified list."""
+  in: [Int!]
+
+  """Not included in the specified list."""
+  notIn: [Int!]
+
+  """Less than the specified value."""
+  lessThan: Int
+
+  """Less than or equal to the specified value."""
+  lessThanOrEqualTo: Int
+
+  """Greater than the specified value."""
+  greaterThan: Int
+
+  """Greater than or equal to the specified value."""
+  greaterThanOrEqualTo: Int
 }
 
 """A person's submission to the survey"""
@@ -203,48 +380,6 @@ input SubmissionFilter {
 
   """Negates the expression."""
   not: SubmissionFilter
-}
-
-"""
-A filter to be used against Int fields. All fields are combined with a logical ‘and.’
-"""
-input IntFilter {
-  """
-  Is null (if `true` is specified) or is not null (if `false` is specified).
-  """
-  isNull: Boolean
-
-  """Equal to the specified value."""
-  equalTo: Int
-
-  """Not equal to the specified value."""
-  notEqualTo: Int
-
-  """
-  Not equal to the specified value, treating null like an ordinary value.
-  """
-  distinctFrom: Int
-
-  """Equal to the specified value, treating null like an ordinary value."""
-  notDistinctFrom: Int
-
-  """Included in the specified list."""
-  in: [Int!]
-
-  """Not included in the specified list."""
-  notIn: [Int!]
-
-  """Less than the specified value."""
-  lessThan: Int
-
-  """Less than or equal to the specified value."""
-  lessThanOrEqualTo: Int
-
-  """Greater than the specified value."""
-  greaterThan: Int
-
-  """Greater than or equal to the specified value."""
-  greaterThanOrEqualTo: Int
 }
 
 """
