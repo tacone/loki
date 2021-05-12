@@ -9,7 +9,8 @@
     "start": "node src/index.js",
     "build": "echo TODO: do we need build?",
     "migrations": "graphile-migrate",
-    "migrations-check": "node src/check-migrations.js"
+    "migrations-check": "node src/check-migrations.js",
+    "migrations-init-root-db": "node src/init-root-db.js"
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",

@@ -20,6 +20,7 @@ services:
     command: >-
        sh -c '
        yarn && wait-port postgres 5432
+       && (yarn run migrations-init-root-db)
        && (yarn run migrations-check || yarn migrations migrate)
        && yarn run dev
        '
