@@ -2,6 +2,20 @@ import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
 
+function allowCors(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  // chr
+  res.setHeader("Access-Control-Max-Age", 86400);
+
+  if (req.method === "OPTIONS") {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+  next && next();
+}
+
 // --- example: log before and after each mutation runs
 //
 // import { makeWrapResolversPlugin } from "graphile-utils";
@@ -49,6 +63,7 @@ const options = {
 // import polka from "polka";
 //
 // polka()
+//   .use(allowCors)
 //   .use(postgraphile(process.env.DATABASE_URL, "public", options))
 //   .listen(process.env.PORT ?? 3000, (err) => {
 //     if (err) throw err;
@@ -61,6 +76,10 @@ const options = {
 
 import http from "http";
 
+const handler = postgraphile(process.env.DATABASE_URL, "public", options);
+
 http
-  .createServer(postgraphile(process.env.DATABASE_URL, "public", options))
+  .createServer((req, res) => {
+    allowCors(req, res, () => handler(req, res));
+  })
   .listen(process.env.PORT ?? 3000);
