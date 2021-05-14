@@ -120,9 +120,9 @@ COMMENT ON COLUMN public.submissions.created_at IS 'The date/time of the submiss
 --
 
 CREATE VIEW public.age_stats AS
- SELECT s2.age AS name,
+ SELECT s2.age AS value,
     (count(*))::integer AS count,
-    (((count(*))::double precision * (100)::double precision) / ((1 + tot_mem.total_members))::double precision) AS percentage
+    (((count(*))::double precision * (100)::double precision) / ((1 + tot_mem.total_members))::double precision) AS ratio
    FROM public.submissions s2,
     ( SELECT (count(*))::integer AS total_members
            FROM public.submissions s3) tot_mem
@@ -142,9 +142,9 @@ COMMENT ON VIEW public.age_stats IS '@omit';
 --
 
 CREATE VIEW public.country_stats AS
- SELECT s2.country AS name,
+ SELECT s2.country AS value,
     (count(*))::integer AS count,
-    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS percentage
+    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS ratio
    FROM public.submissions s2,
     ( SELECT (count(*))::integer AS total_members
            FROM public.submissions s3) tot_mem
@@ -164,9 +164,9 @@ COMMENT ON VIEW public.country_stats IS '@omit';
 --
 
 CREATE VIEW public.experience_rating_stats AS
- SELECT s2.experience_rating AS name,
+ SELECT s2.experience_rating AS value,
     (count(*))::integer AS count,
-    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS percentage
+    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS ratio
    FROM public.submissions s2,
     ( SELECT (count(*))::integer AS total_members
            FROM public.submissions s3) tot_mem
@@ -186,9 +186,9 @@ COMMENT ON VIEW public.experience_rating_stats IS '@omit';
 --
 
 CREATE VIEW public.gender_stats AS
- SELECT s2.gender AS name,
+ SELECT s2.gender AS value,
     (count(*))::integer AS count,
-    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS percentage
+    (((count(*))::double precision * (100)::double precision) / (tot_mem.total_members)::double precision) AS ratio
    FROM public.submissions s2,
     ( SELECT (count(*))::integer AS total_members
            FROM public.submissions s3) tot_mem
@@ -204,10 +204,10 @@ COMMENT ON VIEW public.gender_stats IS '@omit';
 
 
 --
--- Name: statistics; Type: VIEW; Schema: public; Owner: -
+-- Name: submissions_statistics_view; Type: VIEW; Schema: public; Owner: -
 --
 
-CREATE VIEW public.statistics AS
+CREATE VIEW public.submissions_statistics_view AS
  SELECT a.age,
     c.country,
     e.experience_rating,
@@ -223,6 +223,29 @@ CREATE VIEW public.statistics AS
            FROM public.gender_stats) g,
     ( SELECT (count(*))::integer AS total_submissions
            FROM public.submissions) t;
+
+
+--
+-- Name: VIEW submissions_statistics_view; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON VIEW public.submissions_statistics_view IS '
+@omit
+@name submissions_statistics
+';
+
+
+--
+-- Name: submissions_statistics(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION public.submissions_statistics() RETURNS public.submissions_statistics_view
+    LANGUAGE sql STABLE
+    AS $$
+  SELECT *
+  FROM submissions_statistics_view
+  LIMIT 1
+$$;
 
 
 --
