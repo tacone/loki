@@ -16,10 +16,13 @@ services:
         NODE_ENV: production
         VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
     restart: "always"
+    read_only: true
     volumes:
+      - ./data/svelte:/app/.svelte-kit # so we can write in /app/.svelte-kit
       - ./data/yarn:/usr/local/share/.cache/yarn/
       - /tmp/survey/svelte:/tmp
       - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
+      - ./scripts/bin/replace-files:/usr/local/bin/replace-files:ro
       - svelte-static:/static-svelte
 
     environment:
@@ -29,6 +32,7 @@ services:
     working_dir: /app
     command: >-
       sh -c '
+        replace-files /build-files /app/.svelte-kit
         install-files /app/build/assets /static-svelte && yarn run start
       '
     ports:
