@@ -6,13 +6,13 @@
 
 	const query = `
 		query {
-			submission_statistics {
+			submissionsStatistics {
 				age {
 					value
 					count
 					ratio
 				}
-				experience_rating {
+				experienceRating {
 					value
 					count
 					ratio
@@ -27,19 +27,21 @@
 					count
 					ratio
 				}
-				total_submissions
+				totalSubmissions
 			}
 		}`;
 
 	let recordsets = {};
-	$: delete recordsets['total_submissions'];
+	$: delete recordsets['totalSubmissions'];
 	$: totalSubmissions = 0;
 	$: promise = !browser
 		? true
 		: request(import.meta.env.VITE_GRAPHQL_ENDPOINT, query).then((res) => {
-				recordsets = res['submission_statistics'];
-				totalSubmissions = res['submission_statistics']['total_submissions'];
+				recordsets = res['submissionsStatistics'];
+				totalSubmissions = res['submissionsStatistics']['totalSubmissions'];
 		  });
+
+	$: console.log(recordsets)
 </script>
 
 <main>

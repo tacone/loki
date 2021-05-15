@@ -7,7 +7,7 @@ import Head from "next/head";
 
 const QUERY = gql`
   query {
-    submission_statistics {
+    submissionsStatistics {
       age {
         value
         count
@@ -23,12 +23,12 @@ const QUERY = gql`
         count
         ratio
       }
-      experience_rating {
+      experienceRating {
         value
         count
         ratio
       }
-      total_submissions
+      totalSubmissions
     }
   }
 `;
@@ -41,8 +41,8 @@ export default function Home() {
   if (error) {
     console.error(error);
   } else if (!loading) {
-    recordsets = data["submission_statistics"];
-    totalSubmissions = recordsets["total_submissions"];
+    recordsets = data["submissionsStatistics"];
+    totalSubmissions = recordsets["totalSubmissions"];
   }
 
   return (
@@ -64,7 +64,7 @@ export default function Home() {
             <h2 className="page-title">Risultati ({totalSubmissions} invii)</h2>
             <Grid
               columns={2}
-              children={["age", "country", "gender", "experience_rating"].map(
+              children={["age", "country", "gender", "experienceRating"].map(
                 (name) => {
                   return (
                     <Result key={name} name={name} records={recordsets[name]} />

@@ -18,8 +18,15 @@ services:
       - ./scripts/bin/wait-port:/usr/local/bin/wait-port:ro
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=${POSTGRES_DATABASE_URL}
+      - DATABASE_URL=${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}
+      - SHADOW_DATABASE_URL=${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}_shadow
+      - ROOT_DATABASE_URL=${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}_root
     working_dir: /app
-    command: sh -c 'wait-port postgres 5432 && yarn run run-migrations && yarn run start'
+    command: >-
+      sh -c '
+      wait-port postgres 5432
+      && yarn run migrations migrate
+      && yarn run start
+      '
     ports:
       - ${BACKEND_PORT:-7011}:3000
