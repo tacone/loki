@@ -35,10 +35,13 @@ function allowCors(req, res, next) {
 //   }
 // );
 
+const isProduction = process.env.NODE_ENV == 'production';
+
 const options = {
-  watchPg: true,
-  graphiql: true,
-  enhanceGraphiql: true,
+  watchPg: !isProduction,
+  graphiql: !isProduction,
+  enhanceGraphiql: !isProduction,
+  disableQueryLog: isProduction,
   exportGqlSchemaPath: "./generated/schema.graphql",
   appendPlugins: [
     connectionFilterPlugin,
