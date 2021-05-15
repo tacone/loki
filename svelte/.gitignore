@@ -8,9 +8,6 @@
 # testing
 /coverage
 
-# production
-/build
-
 # misc
 .DS_Store
 
@@ -25,8 +22,12 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# svelte specific ignores
 
-.DS_Store
-/.svelte
+/build
 /functions
 /export
+
+# is .svelte still needed ?
+/.svelte
+/.svelte-kit
