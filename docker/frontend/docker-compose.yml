@@ -17,10 +17,13 @@ services:
         NODE_ENV: production
         NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
     restart: "always"
+    read_only: true
     volumes:
+      - ./data/next:/app/.next # so we can write in /app/.next
       - ./data/yarn:/usr/local/share/.cache/yarn/
       - /tmp/survey/frontend:/tmp
       - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
+      - ./scripts/bin/replace-files:/usr/local/bin/replace-files:ro
       - frontend-static:/static
 
     environment:
@@ -30,7 +33,8 @@ services:
     working_dir: /app
     command: >-
       sh -c '
-      install-files /app/.next/static /static
+      replace-files /next-build-files /app/.next
+      && install-files /app/.next/static /static
       && yarn run start
       '
     ports:

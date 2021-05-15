@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# --- use these script to update a container volume replacing
+#     all the files
+
+usage() {
+  test "$2" && echo "Error: $2" && echo
+
+  cat <<EOF
+Usage: $(basename "$0") SOURCE DESTINATION
+
+Description:
+
+     Replace destination's files with files in source.
+
+Example:
+
+    # copy /var/www/images contents under /images/
+
+    $(basename "$0") /var/www/images /images
+
+EOF
+  exit $1
+}
+
+_replace_files () {
+    SOURCE=$1
+    DESTINATION=$2
+    test $SOURCE || usage 1 "SOURCE argument is empty"
+    test $DESTINATION || usage 1 "DESTINATION argument is empty"
+
+    set -ex
+
+    rm -rf $DESTINATION/*
+    cp $SOURCE/* $DESTINATION -Rp
+}
+
+_replace_files "$@"
