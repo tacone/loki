@@ -1,10 +1,10 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { composeValidators, isEmail, isRequired, mapValidators } from '$utils/validators';
 	import reporterDom from '@felte/reporter-dom';
 	import { createForm } from 'felte';
 	import { request } from 'graphql-request';
 	import Field from './Field.svelte';
-	import { goto, prefetch, prefetchRoutes } from '$app/navigation';
 
 	const mutation = `
 		mutation(
