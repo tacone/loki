@@ -10,6 +10,7 @@ services:
         # IMPORTANT: we need to specify all the env needed by the build
         # either here AND in the Dockerfile :(
 
+        NEXT_TELEMETRY_DISABLED: 1
         BUILD_COMMAND: >-
           yarn run build
           && brotli-compress /app/.next/static
