@@ -12,7 +12,7 @@ RUN echo 'NODE_ENV set to '${NODE_ENV}
 # we copy the deps files, and download the dependencies.
 # the cache will only be invalidated if package.json and/or
 # yarn.lock change
-COPY ./frontend/package.json ./frontend/yarn.lock /deps/
+COPY ./frontend/package.json ./frontend/yarn.loc[k] /deps/
 WORKDIR /deps
 # we do not download dependencies in dev, because we do it when bootstraping
 # docker-compose
