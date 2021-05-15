@@ -27,5 +27,8 @@
     "react-final-form": "^6.5.3",
     "react-ssr-prepass": "npm:preact-ssr-prepass",
     "sass": "^1.32.8"
+  },
+  "devDependencies": {
+    "webpack": "^5"
   }
 }
