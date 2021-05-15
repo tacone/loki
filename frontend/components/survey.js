@@ -21,30 +21,34 @@ const Survey = ({ referrer }) => {
 
   const mutation = gql`
     mutation(
-      $name: String!
-      $email_address: String!
-      $age: Int
-      $gender: String
-      $country: String
-      $experience_rating: Int
-      $suggested_improvements: String
-      $referrer: String
-    ) {
-      create_submission(
-        data: {
-          name: $name
-          email_address: $email_address
-          age: $age
-          gender: $gender
-          country: $country
-          experience_rating: $experience_rating
-          suggested_improvements: $suggested_improvements
-          referrer: $referrer
-        }
-      ) {
-        id
-      }
-    }
+			$name: String!
+			$email_address: String!
+			$age: Int
+			$gender: String
+			$country: String
+			$experience_rating: Int
+			$suggested_improvements: String
+			$referrer: String
+		) {
+			createSubmission(
+				input: {
+					submission: {
+						name: $name
+						emailAddress: $email_address
+						age: $age
+						gender: $gender
+						country: $country
+						experienceRating: $experience_rating
+						suggestedImprovements: $suggested_improvements
+						referrer: $referrer
+					}
+				}
+			) {
+				submission {
+					id
+				}
+			}
+		}
   `;
 
   const [saveSubmission] = useMutation(mutation);
