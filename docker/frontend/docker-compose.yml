@@ -37,5 +37,5 @@ services:
       - ${FRONTEND_PORT:-7000}:3000
 
 volumes:
-  # we need to set up a volume so nginx sees the compiled files from sapper
+  # we need to set up a volume so nginx sees the compiled files from nextjs
   frontend-static:
