@@ -19,6 +19,8 @@ const Survey = ({ referrer }) => {
   const [serverError, setServerError] = useState("");
   const router = useRouter();
 
+  if (!referrer) referrer = '';
+
   const mutation = gql`
     mutation(
 			$name: String!
