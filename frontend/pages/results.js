@@ -35,35 +35,45 @@ const QUERY = gql`
 
 export default function Home() {
   const { data, loading, error } = useQuery(QUERY);
-  if (loading) {
-    return <h2>Loading...</h2>;
-  }
+  let recordsets = [];
+  const totalSubmissions = "";
 
   if (error) {
     console.error(error);
-    return null;
+  } else if (!loading) {
+    recordsets = data["submission_statistics"];
+    totalSubmissions = recordsets["total_submissions"];
   }
 
-  const recordsets = data["submission_statistics"];
-  const totalSubmissions = recordsets["total_submissions"];
   return (
     <Layout>
       <Head>
         <title>Survey</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2 className="page-title">Risultati ({totalSubmissions} invii)</h2>
       <ClientOnly>
-        <Grid
-          columns={2}
-          children={["age", "country", "gender", "experience_rating"].map(
-            (name) => {
-              return (
-                <Result key={name} name={name} records={recordsets[name]} />
-              );
-            }
-          )}
-        ></Grid>
+        {loading && <h2>loading...</h2>}
+        {error && !loading && (
+          <div>
+            <h2>Error</h2>
+            <p>{error.message}</p>
+          </div>
+        )}
+        {!loading && !error && (
+          <>
+            <h2 className="page-title">Risultati ({totalSubmissions} invii)</h2>
+            <Grid
+              columns={2}
+              children={["age", "country", "gender", "experience_rating"].map(
+                (name) => {
+                  return (
+                    <Result key={name} name={name} records={recordsets[name]} />
+                  );
+                }
+              )}
+            ></Grid>
+          </>
+        )}
       </ClientOnly>
     </Layout>
   );
