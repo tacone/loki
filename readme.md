@@ -1,6 +1,6 @@
 # Loki
 
-A simple Docker / Frontend / Bakend boilerplate, with a meaningless name.
+A simple Docker / Frontend / Backend boilerplate, with a meaningless name.
 
 ## Installation
 
@@ -112,6 +112,7 @@ The good old postgres.
 | `data/`     | the db data, and npm cache is saved here                           |
 | `docker/`   | the docker-compose files for the various containers                |
 | `frontend/` | the frontend application code                                      |
+| `svelte/`   | alternative frontend based on Svelte Kit                           |
 | `backend/`  | the backend application code                                       |
 | `scripts/`  | the starting scripts (`dev`) and everything needed to make it work |
 
