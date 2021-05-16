@@ -1,43 +1,70 @@
-version: '3.4'
+version: "3.4"
 
 services:
+
   svelte:
+
+    # 🖼️
     image: survey-node-svelte
+
+    # ☃️
     build:
       context: ./
       dockerfile: ./docker/svelte/Dockerfile
       args:
-        # IMPORTANT: we need to specify all the env needed by the build
-        # either here AND in the Dockerfile :(
-
         BUILD_COMMAND: >-
           yarn run build
           && brotli-compress /app/build/assets
+
+        # env variables needed by the build
         NODE_ENV: production
         VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
-    restart: "always"
-    read_only: true
-    volumes:
-      - ./data/svelte:/app/.svelte-kit # so we can write in /app/.svelte-kit
-      - ./data/yarn:/usr/local/share/.cache/yarn/
-      - /tmp/survey/svelte:/tmp
-      - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
-      - ./scripts/bin/replace-files:/usr/local/bin/replace-files:ro
-      - svelte-static:/static-svelte
 
+    # 🌳
     environment:
       - NODE_ENV=production
       - VITE_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
-      - NEXT_TELEMETRY_DISABLED=1
+
+    # 🔗
+    ports:
+      - ${SVELTE_PORT:-7002}:3000
+
+    # 👻
+    restart: "always"
+
+    # 🛡️ make everything read-only except the volumes
+    read_only: true
+
+    # 📂
+    volumes:
+      # make these directories writable
+      - ./data/svelte:/app/.svelte-kit
+      - /tmp/survey/svelte:/tmp
+
+      # share yarn cache folder with the other containers
+      - ./data/yarn:/usr/local/share/.cache/yarn/
+
+      # utility scripts
+      - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
+      - ./scripts/bin/replace-files:/usr/local/bin/replace-files:ro
+
+      # we need to set up a volume so nginx sees the compiled files from sveltekit
+      - svelte-static:/static-svelte
+
+    # 🔧
     working_dir: /app
+
+    # 1. the volume may be stale, so copy back the generated files in /app/.svelte.kit
+    # 2. move in /static-svelte the files meant to be served directly by the webserver
+    # 🚀
     command: >-
       sh -c '
         replace-files /build-files /app/.svelte-kit
         install-files /app/build/assets /static-svelte && yarn run start
       '
-    ports:
-      - ${SVELTE_PORT:-7002}:3000
 
+# 📂
 volumes:
-  # we need to set up a volume so nginx sees the compiled files from sapper
+
+  # we need to set up a volume so nginx sees the compiled files from sveltekit
   svelte-static:
