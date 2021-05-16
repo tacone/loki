@@ -32,6 +32,9 @@ services:
     # 👻
     restart: "always"
 
+    # 🛡️ make everything read-only except the volumes
+    read_only: true
+
     # 📂
     volumes:
       - ./data/yarn:/usr/local/share/.cache/yarn/
