@@ -1,22 +1,35 @@
 version: '3.4'
 
 services:
+
   backend:
-    restart: "no"
+
+    # ☃️
     build:
       args:
-        - BUILD_COMMAND=
         - NODE_ENV=development
-    volumes:
-      - ./backend:/app
+
+        # don't build the app
+        - BUILD_COMMAND=
+
+    # 🌳
     environment:
       - NODE_ENV=development
+
+    # 👻
+    restart: "no"
+
+    # 📂
+    volumes:
+      - ./backend:/app
+
     # in development mode we mount the source folder as a volume
     # and download the depencencies there so they can be parsed
     # by the IDE
     #
     # for development flexibility we only run migrations only if they have not been
     # set up yet (first run)
+    # 🚀
     command: >-
        sh -c '
        yarn && wait-port postgres 5432
