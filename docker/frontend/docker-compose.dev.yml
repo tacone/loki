@@ -1,17 +1,30 @@
 version: '3.4'
 
 services:
+
   frontend:
-    restart: "no"
+
+    # ☃️
     build:
       args:
-        - BUILD_COMMAND=
         - NODE_ENV=development
-    volumes:
-      - ./frontend:/app
+
+        # don't build the app
+        - BUILD_COMMAND=
+
+    # 🌳
     environment:
       - NODE_ENV=development
+
+    # 👻
+    restart: "no"
+
+    # 📂
+    volumes:
+      - ./frontend:/app
+
     # in development mode we mount the source folder as a volume
     # and download the depencencies there so they can be parsed
     # by the IDE
+    # 🚀
     command: sh -c "yarn && yarn run dev"

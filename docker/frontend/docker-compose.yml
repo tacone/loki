@@ -1,45 +1,72 @@
 version: '3.4'
 
 services:
+
   frontend:
+
+    # 🖼️
     image: survey-node-frontend
+
+    # ☃️
     build:
       context: ./
       dockerfile: ./docker/frontend/Dockerfile
       args:
-        # IMPORTANT: we need to specify all the env needed by the build
-        # either here AND in the Dockerfile :(
-
-        NEXT_TELEMETRY_DISABLED: 1
         BUILD_COMMAND: >-
           yarn run build
           && brotli-compress /app/.next/static
-        NODE_ENV: production
-        NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
-    restart: "always"
-    read_only: true
-    volumes:
-      - ./data/next:/app/.next # so we can write in /app/.next
-      - ./data/yarn:/usr/local/share/.cache/yarn/
-      - /tmp/survey/frontend:/tmp
-      - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
-      - ./scripts/bin/replace-files:/usr/local/bin/replace-files:ro
-      - frontend-static:/static
 
+        # env variables needed by the build
+        NODE_ENV: production
+        NEXT_TELEMETRY_DISABLED: 1
+        NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+
+    # 🌳
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
       - NEXT_TELEMETRY_DISABLED=1
+
+    # 🔗
+    ports:
+      - ${FRONTEND_PORT:-7000}:3000
+
+    # 👻
+    restart: "always"
+
+    # 🛡️ make everything read-only except the volumes
+    read_only: true
+
+    # 📂
+    volumes:
+      # make these directories writable
+      - ./data/next:/app/.next # so we can write in /app/.next
+      - /tmp/survey/frontend:/tmp
+
+      # share yarn cache folder with the other containers
+      - ./data/yarn:/usr/local/share/.cache/yarn/
+
+      # utility scripts
+      - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
+      - ./scripts/bin/replace-files:/usr/local/bin/replace-files:ro
+
+      # we need to set up a volume so nginx sees the compiled assets
+      - frontend-static:/static
+
+    # 🔧
     working_dir: /app
+
+    # 1. the volume may be stale, so copy back the generated files in /app/.next
+    # 2. move in /static the files meant to be served directly by the webserver
+    # 🚀
     command: >-
       sh -c '
       replace-files /next-build-files /app/.next
       && install-files /app/.next/static /static
       && yarn run start
       '
-    ports:
-      - ${FRONTEND_PORT:-7000}:3000
 
+# 📂
 volumes:
   # we need to set up a volume so nginx sees the compiled files from nextjs
   frontend-static:
