@@ -24,6 +24,7 @@ services:
     environment:
       - NODE_ENV=production
       - VITE_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
+      - YARN_DISABLE_SELF_UPDATE_CHECK=true
 
     # 🔗
     ports:
