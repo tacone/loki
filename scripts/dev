@@ -12,7 +12,7 @@
 # ------------------------------------------------------------------
 
 SCRIPTS=$(dirname "$0")
-DO=$(basename "$0")
+THIS=$(basename "$0")
 ROOT=$(realpath $SCRIPTS/..)
 
 source $SCRIPTS/lib/config

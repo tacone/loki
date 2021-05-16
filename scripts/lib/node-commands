@@ -13,7 +13,7 @@ handle-node-commands () {
     custom_commands="$custom_commands  yarn | y           Execute yarn\n";
 
     if [ "$1" = "y" ] || [ "$1" = "yarn" ]; then
-        $DO run $2 yarn "${@:3}"
+        $THIS run $2 yarn "${@:3}"
         exit 0;
     fi;
 
