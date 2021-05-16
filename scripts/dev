@@ -11,14 +11,9 @@
 # scripts/dev up
 # ------------------------------------------------------------------
 
-SCRIPTS=$(dirname "$0")
-THIS=$(basename "$0")
-ROOT=$(realpath $SCRIPTS/..)
-
-source $SCRIPTS/lib/config
-source $SCRIPTS/lib/make-dockerignore
-source $SCRIPTS/lib/custom-commands
-source $SCRIPTS/lib/node-commands
+# take a look to this file to learn more on the predefined
+# environment variables and functions
+source $(dirname "$0")/lib/init
 
 # allow frontend and backend folders to be read by Dockerfile(s)
 make-dockerignore frontend backend svelte
@@ -29,9 +24,5 @@ BACKEND="-f docker/backend/docker-compose.yml -f docker/backend/docker-compose.d
 SVELTE="-f docker/svelte/docker-compose.yml -f docker/svelte/docker-compose.dev.yml"
 POSTGRES="-f docker/postgres/docker-compose.yml -f docker/postgres/docker-compose.dev.yml"
 AUTH="-f docker/auth/docker-compose.yml -f docker/auth/docker-compose.dev.yml"
-
-handle-custom-commands "$@"
-handle-node-commands "$@"
-[ $STOP ] && exit 0
 
 docker-compose $COMMON $FRONTEND $BACKEND $POSTGRES $SVELTE $AUTH  "$@"
