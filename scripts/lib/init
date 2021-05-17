@@ -1,10 +1,11 @@
 #!/bin/bash
 
-# --- Environment Variables
+# --- Base Environment Variables
 
 SCRIPTS=$(dirname "$0")
 THIS=$(basename "$0")
 ROOT=$(realpath $SCRIPTS/..)
+DATA=$ROOT/data
 
 # --- Common functions
 
@@ -21,3 +22,7 @@ handle-node-commands "$@"
 
 # in some cases (like global help) we just want to stop the execution immediately
 [ $STOP ] && exit 0
+
+# --- Other Environment Variables
+
+config USER_ID "$UID"

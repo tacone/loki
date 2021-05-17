@@ -32,4 +32,7 @@ services:
     # and download the depencencies there so they can be parsed
     # by the IDE
     # 🚀
-    command: sh -c "yarn && yarn run dev"
+    command: >-
+      sh -c "
+        yarn && yarn run dev
+      "

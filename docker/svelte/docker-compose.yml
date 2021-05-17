@@ -16,15 +16,21 @@ services:
           yarn run build
           && brotli-compress /app/build/assets
 
-        # env variables needed by the build
+        # the UID we'll use to run the app, use 0 if you want root
+        USER_ID: ${USER_ID} # 🔑
+        # other env variables needed by the build
         NODE_ENV: production
         VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+
+    # 🚪 a custom entrypoint to fix permissions
+    entrypoint: /entrypoint.sh # 🔑
 
     # 🌳
     environment:
       - NODE_ENV=production
       - VITE_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
       - YARN_DISABLE_SELF_UPDATE_CHECK=true
+      - YARN_CACHE_FOLDER=/usr/local/share/.cache/yarn
 
     # 🔗
     ports:
@@ -36,14 +42,22 @@ services:
     # 🛡️ make everything read-only except the volumes
     read_only: true
 
+    # use root here, we'll change the user in the entrypoint
+    # to $USER_ID
+    # 🔑
+    user: "0"
+
     # 📂
     volumes:
+      # a custom entrypoint to fix permissions (depends on su-exec)
+      - ./docker/svelte/entrypoint.sh:/entrypoint.sh # 🔑
+
       # make these directories writable
       - ./data/svelte:/app/.svelte-kit
       - /tmp/survey/svelte:/tmp
 
       # share yarn cache folder with the other containers
-      - ./data/yarn:/usr/local/share/.cache/yarn/
+      - ./data/yarn-${USER_ID}:/usr/local/share/.cache/yarn
 
       # utility scripts
       - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
