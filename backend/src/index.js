@@ -42,7 +42,7 @@ const options = {
   graphiql: !isProduction,
   enhanceGraphiql: !isProduction,
   disableQueryLog: isProduction,
-  exportGqlSchemaPath: "./generated/schema.graphql",
+  exportGqlSchemaPath: !isProduction && "./generated/schema.graphql",
   appendPlugins: [
     connectionFilterPlugin,
     simplifyInflector,
