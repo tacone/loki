@@ -99,6 +99,10 @@
        // NOTE: this script does nothing when envvar `IN_TESTS` is `1`
        "command": "node src/dump-db.js"
     },
+    {
+       "_": "command",
+       "command": "chmod +r migrations -R"
+    },
   ],
 
   /*

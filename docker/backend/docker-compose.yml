@@ -14,8 +14,13 @@ services:
       args:
         BUILD_COMMAND: yarn run build
 
-        # env variables needed by the build
+        # the UID we'll use to run the app, use 0 if you want root
+        USER_ID: ${USER_ID} # 🔑
+        # other env variables needed by the build
         NODE_ENV: production
+
+    # 🚪 a custom entrypoint to fix permissions
+    entrypoint: /entrypoint.sh # 🔑
 
     # 🌳
     environment:
@@ -24,6 +29,8 @@ services:
       SHADOW_DATABASE_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}_shadow
       ROOT_DATABASE_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}_root
       YARN_DISABLE_SELF_UPDATE_CHECK: "true"
+      USER_ID: ${USER_ID}
+      chown_tmp: /tmp
 
     # 🔗
     ports:
@@ -35,10 +42,23 @@ services:
     # 🛡️ make everything read-only except the volumes
     read_only: true
 
+    # always use root here, we'll change the user in the entrypoint
+    # to $USER_ID
+    # 🔑
+    user: "0"
+
     # 📂
     volumes:
-      - ./data/yarn:/usr/local/share/.cache/yarn/
+      # a custom entrypoint to fix permissions (depends on su-exec)
+      - ./scripts/bin/entrypoint.sh:/entrypoint.sh # 🔑
+
+      # make these directories writable
       - /tmp/survey/backend:/tmp
+
+      # share yarn cache folder with the other containers
+      - ./data/yarn-${USER_ID}:/usr/local/share/.cache/yarn
+
+      # utility scripts
       - ./scripts/bin/wait-port:/usr/local/bin/wait-port:ro
 
     # 🔧
