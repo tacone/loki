@@ -14,7 +14,7 @@ services:
 
     # 🌳
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
 
     # 👻
     restart: "no"

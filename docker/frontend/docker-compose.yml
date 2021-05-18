@@ -23,10 +23,10 @@ services:
 
     # 🌳
     environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
-      - NEXT_TELEMETRY_DISABLED=1
-      - YARN_DISABLE_SELF_UPDATE_CHECK=true
+      NODE_ENV: production
+      NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+      NEXT_TELEMETRY_DISABLED: 1
+      YARN_DISABLE_SELF_UPDATE_CHECK: "true"
 
     # 🔗
     ports:
