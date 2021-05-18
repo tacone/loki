@@ -38,28 +38,6 @@ type Query implements Node {
     """
     filter: SubmissionFilter
   ): [Submission!]
-
-  """Reads a set of `Zzz`."""
-  zzzes(
-    """Only read the first `n` values of the set."""
-    first: Int
-
-    """Skip the first `n` values."""
-    offset: Int
-
-    """The method to use when ordering `Zzz`."""
-    orderBy: [ZzzesOrderBy!]
-
-    """
-    A condition to be used in determining which values should be returned by the collection.
-    """
-    condition: ZzzCondition
-
-    """
-    A filter to be used in determining which values should be returned by the collection.
-    """
-    filter: ZzzFilter
-  ): [Zzz!]
   submission(id: Int!): Submission
   submissionsStatistics: SubmissionsStatistic
 
@@ -442,42 +420,6 @@ input DateFilter {
 
   """Greater than or equal to the specified value."""
   greaterThanOrEqualTo: Date
-}
-
-type Zzz {
-  c: String
-}
-
-"""Methods to use when ordering `Zzz`."""
-enum ZzzesOrderBy {
-  NATURAL
-  C_ASC
-  C_DESC
-}
-
-"""
-A condition to be used against `Zzz` object types. All fields are tested for equality and combined with a logical ‘and.’
-"""
-input ZzzCondition {
-  """Checks for equality with the object’s `c` field."""
-  c: String
-}
-
-"""
-A filter to be used against `Zzz` object types. All fields are combined with a logical ‘and.’
-"""
-input ZzzFilter {
-  """Filter by the object’s `c` field."""
-  c: StringFilter
-
-  """Checks for all expressions in this list."""
-  and: [ZzzFilter!]
-
-  """Checks for any expressions in this list."""
-  or: [ZzzFilter!]
-
-  """Negates the expression."""
-  not: ZzzFilter
 }
 
 type SubmissionsStatistic {
