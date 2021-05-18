@@ -1,7 +1,9 @@
 FROM node:16-alpine
 
-# we need it to brotli compress the static export
-RUN apk add brotli
+# we need:
+# - brotli compress the static export
+# - su-exec to downgrade user permissions ( https://github.com/ncopa/su-exec )
+RUN apk add brotli su-exec
 
 # declare the NODE_ENV. This will invalidate the cache from now on if
 # NODE_ENV changes.
@@ -43,4 +45,10 @@ RUN echo 'BUILD_COMMAND set to '${BUILD_COMMAND}
 
 RUN if [ "$NODE_ENV" = 'production' ]; then sh -c "$BUILD_COMMAND"; else echo 'Skipping export'; fi
 
-RUN  if [ "$NODE_ENV" = 'production' ]; then cp /app/.next /next-build-files -Rp; fi
+RUN  if [ "$NODE_ENV" = 'production' ]; then cp /app/.next /build-files -Rp; fi
+
+# 🔑
+ARG USER_ID
+RUN echo 'USER_ID set to ${USER_ID}'
+
+RUN adduser -S app -u ${USER_ID} || echo USER ${USER_ID} already exists.
