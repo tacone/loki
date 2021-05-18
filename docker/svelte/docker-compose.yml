@@ -30,10 +30,9 @@ services:
       NODE_ENV: production
       VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
       YARN_DISABLE_SELF_UPDATE_CHECK: "true"
-      YARN_CACHE_FOLDER: /usr/local/share/.cache/yarn
       chown_yarn: /usr/local/share/.cache/yarn
       chown_tmp: /tmp
-      chown_svelte: /app/.svelte-kit
+      chown_app: /app/.svelte-kit
       chown_static_files: /static-svelte
 
     # 🔗
@@ -46,7 +45,7 @@ services:
     # 🛡️ make everything read-only except the volumes
     read_only: true
 
-    # use root here, we'll change the user in the entrypoint
+    # always use root here, we'll change the user in the entrypoint
     # to $USER_ID
     # 🔑
     user: "0"
@@ -78,8 +77,9 @@ services:
     # 🚀
     command: >-
       sh -c '
-        replace-files /build-files /app/.svelte-kit
-        install-files /app/build/assets /static-svelte && yarn run start
+        replace-files /build-files /app/.svelte-kit &&
+        install-files /app/build/assets /static-svelte &&
+        yarn run start
       '
 
 # 📂

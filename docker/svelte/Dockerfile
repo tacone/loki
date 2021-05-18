@@ -43,6 +43,8 @@ RUN echo 'BUILD_COMMAND set to '${BUILD_COMMAND}
 
 RUN if [ "$NODE_ENV" = 'production' ]; then sh -c "$BUILD_COMMAND"; else echo 'Skipping export'; fi
 
+RUN  if [ "$NODE_ENV" = 'production' ]; then cp /app/.svelte-kit /build-files -Rp; fi
+
 # 🔑
 ARG USER_ID
 ENV USER_ID ${USER_ID}
