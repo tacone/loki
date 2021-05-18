@@ -32,7 +32,7 @@ _replace_files () {
     set -ex
 
     rm -rf $DESTINATION/*
-    cp $SOURCE/* $DESTINATION -Rp
+    cp $SOURCE/* $DESTINATION -R
 }
 
 _replace_files "$@"
