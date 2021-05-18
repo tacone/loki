@@ -31,6 +31,10 @@ services:
       VITE_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
       YARN_DISABLE_SELF_UPDATE_CHECK: "true"
       YARN_CACHE_FOLDER: /usr/local/share/.cache/yarn
+      chown_yarn: /usr/local/share/.cache/yarn
+      chown_tmp: /tmp
+      chown_svelte: /app/.svelte-kit
+      chown_static_files: /static-svelte
 
     # 🔗
     ports:
@@ -50,7 +54,7 @@ services:
     # 📂
     volumes:
       # a custom entrypoint to fix permissions (depends on su-exec)
-      - ./docker/svelte/entrypoint.sh:/entrypoint.sh # 🔑
+      - ./scripts/bin/entrypoint.sh:/entrypoint.sh # 🔑
 
       # make these directories writable
       - ./data/svelte:/app/.svelte-kit
