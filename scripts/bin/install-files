@@ -41,7 +41,7 @@ _install_files () {
     rm -rf $NEXT
 
     # copy the file to the next path
-    cp -Rp $SOURCE $NEXT
+    cp -R $SOURCE $NEXT
 
     # swiftly rename current to previous and next to current
     mv $CURRENT $PREVIOUS

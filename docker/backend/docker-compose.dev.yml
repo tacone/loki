@@ -14,7 +14,9 @@ services:
 
     # 🌳
     environment:
-      - NODE_ENV=development
+      NODE_ENV: development
+      chown_app: /app/generated
+      chown_migrations: /app/migrations
 
     # 👻
     restart: "no"

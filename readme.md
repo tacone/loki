@@ -1,6 +1,14 @@
 # Loki
 
-A simple Docker / Frontend / Backend boilerplate, with a meaningless name.
+A simple Docker / Frontend / Backend starter app, with a meaningless name.
+
+- 👍 No-config first run
+- 👍 Development mode with hot reloading everywhere
+- 👍 Production mode with optional static file compilation
+- 👍 Two alternative frontends: Svelte and NextJS
+- 👍 GraphQL backend with Postgraphile + Migrations
+- 👍 Unpriviledged user + readonly filesystem
+- 👍 Small images + fast build
 
 ## Installation
 
@@ -14,6 +22,7 @@ When everything is up (it will take some time for the first run) these ports
 will be exposed on your localhost:
 
 - frontend: [7000](http://localhost:7000)
+- svelte frontend: [7002](http://localhost:7002)
 - backend: [7011](http://localhost:7011)
 - postgres: 7040
 
@@ -68,8 +77,8 @@ The stack consists of a few docker containers.
 
 - Nginx
 - Node
-- NextJS
-- React
+- NextJS / Svelte Kit
+- React / Svelte
 - Alpine Linux
 
 **Backend:**
@@ -88,6 +97,10 @@ The frontend is build in React + NextJS in order to make it easy to generate a
 static website. The forms use Final Forms. All the communication with the
 backend is done using GraphQL.
 
+### Svelte
+
+An alternative frontend with Svelte + SvelteKit. Page payload ridiculously small. The forms use Felte. All the communication with the backend in done using GraphQL.
+
 ### Backend
 
 We use [Postgraphile][postgraphile] for the backend. Take a look at the [documentation](./backend/readme.md).
@@ -103,6 +116,10 @@ Database migrations: in development mode, they are automatically run only the fi
 ### Database
 
 The good old postgres.
+
+### Security
+
+While security is not the focus of this starter app, by default we mount the root filesystem as readonly and run the containers with an unprivileged user.
 
 ## Filesystem Layout
 
@@ -125,3 +142,5 @@ The good old postgres.
 1. While the GraphQL server validates pretty much everything, the email
    validation is currently performed on the client, while it would be better
    to also validate the mail on the server as well.
+
+1. If you specify a custom `USER_ID` in development mode, you may have issues with next (see [#1](https://github.com/tacone/loki/issues/1))

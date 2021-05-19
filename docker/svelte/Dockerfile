@@ -1,7 +1,9 @@
 FROM node:16-alpine
 
-# we need it to brotli compress the static export
-RUN apk add brotli
+# we need:
+# - brotli compress the static export
+# - su-exec to downgrade user permissions ( https://github.com/ncopa/su-exec )
+RUN apk add brotli su-exec
 
 # declare the NODE_ENV. This will invalidate the cache from now on if
 # NODE_ENV changes.
@@ -14,6 +16,7 @@ RUN echo 'NODE_ENV set to '${NODE_ENV}
 # yarn.lock change
 COPY ./svelte/package.json ./svelte/yarn.loc[k] /deps/
 WORKDIR /deps
+
 # we do not download dependencies in dev, because we do it when bootstraping
 # docker-compose
 # (we need to use the dev deps because of https://github.com/sveltejs/sapper/issues/592)
@@ -39,3 +42,12 @@ ENV BUILD_COMMAND ${BUILD_COMMAND}
 RUN echo 'BUILD_COMMAND set to '${BUILD_COMMAND}
 
 RUN if [ "$NODE_ENV" = 'production' ]; then sh -c "$BUILD_COMMAND"; else echo 'Skipping export'; fi
+
+RUN  if [ "$NODE_ENV" = 'production' ]; then cp /app/.svelte-kit /build-files -Rp; fi
+
+# 🔑
+ARG USER_ID
+ENV USER_ID ${USER_ID}
+RUN echo 'USER_ID set to ${USER_ID}'
+
+RUN adduser -S app -u ${USER_ID} || echo USER ${USER_ID} already exists.

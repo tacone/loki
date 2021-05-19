@@ -16,17 +16,27 @@ services:
           yarn run build
           && brotli-compress /app/.next/static
 
-        # env variables needed by the build
+        # the UID we'll use to run the app, use 0 if you want root
+        USER_ID: ${USER_ID} # 🔑
+        # other env variables needed by the build
         NODE_ENV: production
         NEXT_TELEMETRY_DISABLED: 1
         NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
 
+    # 🚪 a custom entrypoint to fix permissions
+    entrypoint: /entrypoint.sh # 🔑
+
     # 🌳
     environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_GRAPHQL_ENDPOINT=${GRAPHQL_ENDPOINT}
-      - NEXT_TELEMETRY_DISABLED=1
-      - YARN_DISABLE_SELF_UPDATE_CHECK=true
+      NODE_ENV: production
+      NEXT_PUBLIC_GRAPHQL_ENDPOINT: ${GRAPHQL_ENDPOINT}
+      NEXT_TELEMETRY_DISABLED: 1
+      YARN_DISABLE_SELF_UPDATE_CHECK: "true"
+      USER_ID: ${USER_ID}
+      chown_yarn: /usr/local/share/.cache/yarn
+      chown_tmp: /tmp
+      chown_app: /app/.next
+      chown_static_files: /static
 
     # 🔗
     ports:
@@ -38,14 +48,22 @@ services:
     # 🛡️ make everything read-only except the volumes
     read_only: true
 
+    # always use root here, we'll change the user in the entrypoint
+    # to $USER_ID
+    # 🔑
+    user: "0"
+
     # 📂
     volumes:
+      # a custom entrypoint to fix permissions (depends on su-exec)
+      - ./scripts/bin/entrypoint.sh:/entrypoint.sh # 🔑
+
       # make these directories writable
       - ./data/next:/app/.next # so we can write in /app/.next
       - /tmp/survey/frontend:/tmp
 
       # share yarn cache folder with the other containers
-      - ./data/yarn:/usr/local/share/.cache/yarn/
+      - ./data/yarn-${USER_ID}:/usr/local/share/.cache/yarn
 
       # utility scripts
       - ./scripts/bin/install-files:/usr/local/bin/install-files:ro
@@ -62,7 +80,7 @@ services:
     # 🚀
     command: >-
       sh -c '
-      replace-files /next-build-files /app/.next
+      replace-files /build-files /app/.next
       && install-files /app/.next/static /static
       && yarn run start
       '
