@@ -1,6 +1,7 @@
 import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
+import {isListType} from "graphql"
 
 function allowCors(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,24 +17,22 @@ function allowCors(req, res, next) {
   next && next();
 }
 
-// --- example: log before and after each mutation runs
-//
-// import { makeWrapResolversPlugin } from "graphile-utils";
-//
-// const mutationWrapper = makeWrapResolversPlugin(
-//   (context) => {
-//     if (context.scope.isRootMutation) {
-//       return { scope: context.scope };
-//     }
-//     return null;
-//   },
-//   ({ scope }) => async (resolver, user, args, context, _resolveInfo) => {
-//     console.log(`Mutation '${scope.fieldName}' starting with arguments:`, args);
-//     const result = await resolver();
-//     console.log(`Mutation '${scope.fieldName}' result:`, result);
-//     return result;
-//   }
-// );
+import { makeWrapResolversPlugin } from "graphile-utils";
+
+// Convert every null list to an empty list (`[]`)
+const nullListsToEmptyLists = makeWrapResolversPlugin(
+  (context) => {
+    return { scope: context.scope };
+  },
+  ({ scope }) => async (resolver, user, args, context, _resolveInfo) => {
+    const result = await resolver();
+    if (result === null && isListType(_resolveInfo.returnType)) {
+      return [];
+    }
+
+    return result;
+  }
+);
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -46,7 +45,7 @@ const options = {
   appendPlugins: [
     connectionFilterPlugin,
     simplifyInflector,
-    // mutationWrapper
+    nullListsToEmptyLists
   ],
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
