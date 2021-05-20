@@ -1,7 +1,7 @@
 import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
-import {isListType} from "graphql"
+import { isListType } from "graphql";
 
 function allowCors(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -24,17 +24,18 @@ const nullListsToEmptyLists = makeWrapResolversPlugin(
   (context) => {
     return { scope: context.scope };
   },
-  ({ scope }) => async (resolver, user, args, context, _resolveInfo) => {
-    const result = await resolver();
-    if (result === null && isListType(_resolveInfo.returnType)) {
-      return [];
-    }
+  ({ scope }) =>
+    async (resolver, user, args, context, _resolveInfo) => {
+      const result = await resolver();
+      if (result === null && isListType(_resolveInfo.returnType)) {
+        return [];
+      }
 
-    return result;
-  }
+      return result;
+    }
 );
 
-const isProduction = process.env.NODE_ENV == 'production';
+const isProduction = process.env.NODE_ENV == "production";
 
 const options = {
   watchPg: !isProduction,
@@ -45,7 +46,7 @@ const options = {
   appendPlugins: [
     connectionFilterPlugin,
     simplifyInflector,
-    nullListsToEmptyLists
+    nullListsToEmptyLists,
   ],
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
@@ -61,7 +62,7 @@ const options = {
 // ---------------------------------------------------------
 // --- Polka (see: https://github.com/lukeed/polka )
 // ---------------------------------------------------------
-//
+
 // import polka from "polka";
 //
 // polka()
@@ -71,7 +72,7 @@ const options = {
 //     if (err) throw err;
 //     console.log(`> Running on localhost:3000`);
 //   });
-//
+
 // ---------------------------------------------------------
 // --- Node native HTTP Server
 // ---------------------------------------------------------
