@@ -64,19 +64,19 @@
     picomatch "^2.2.2"
 
 "@sveltejs/adapter-node@^1.0.0-next.16":
-  version "1.0.0-next.20"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.20.tgz#25ec7b7680d0bd3ad0ade76724f61adbd711f26b"
-  integrity sha512-ornNW289XN4TyY3tRXVGH38FxrqLsw1MHn4oq92T7U6EqnSbw/22waMZnPBQUxcj5GxZsXuuFjeBjn1BWt0x2A==
+  version "1.0.0-next.21"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.21.tgz#1e71586fea436c0c2dcdd678a70d237fc654d0e9"
+  integrity sha512-xAuLpct6VEbfPweIynhLFiuZmD8jIU8NTP5n6UWeDubGtFFJ0kOUKU5trJLxFOZXRTYbyDGVp9LfoSIs5LkWWQ==
 
 "@sveltejs/adapter-static@^1.0.0-next.9":
-  version "1.0.0-next.9"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-1.0.0-next.9.tgz#e8cc5ddac3e18fffc9ce2ecc63b39d25a0bca894"
-  integrity sha512-yqZ+4dzi+2+2jDPHCrI7WrLdXyQ/0U56a7aFdepmodpvpxhazF203D1ez+AtTo27FjMmHjfI+q0O2FivUOosxg==
+  version "1.0.0-next.10"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-1.0.0-next.10.tgz#dd02fb517c1b9aa5c7c46ecf766676b757838adb"
+  integrity sha512-DDsfyl7phvvR5FIoKSejbK8UYLMiVppx/MZdR7HIsPaL/QQqP2s0jIBlCyOwnK1GX/ENWB9Gg19xjGACB98Pwg==
 
 "@sveltejs/kit@^1.0.0-next.77":
-  version "1.0.0-next.107"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.107.tgz#346810ec6b826d57bbf371b3f0f7d5de59e8d411"
-  integrity sha512-HxomGMWbuWTU8lahk98hqIL/xjW6HzNTAvTZVMnnmlMHN1N8x7+abkz4Y09Zhu8lZkZpFuqBj2UlsgPW4uJXtw==
+  version "1.0.0-next.108"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.108.tgz#25f9cacfc28a6e3b16b3cf0ddc452829c480c6f5"
+  integrity sha512-4XPuN1WsL6hksYZionnO1f+aBLifWIM/gFgDgx4u1Fzhln5usgOCe0RqrN3unmhyprawRYY5/1DUPfqfVHxSVQ==
   dependencies:
     "@sveltejs/vite-plugin-svelte" "^1.0.0-next.10"
     cheap-watch "^1.0.3"
@@ -395,10 +395,10 @@ enquirer@^2.3.5:
   dependencies:
     ansi-colors "^4.1.1"
 
-esbuild@^0.11.20:
-  version "0.11.22"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.11.22.tgz#239009cc1519179c7a7000bc321482a1e74de999"
-  integrity sha512-1e6BDytHzTxRlUOCe7M0+ZV5JqKARByHwz1iP5UNmxt2TEOyI8E/1gLLNCyaPjpXfCr1TThxTyFO9MjF5mFLvA==
+esbuild@^0.11.23:
+  version "0.11.23"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.11.23.tgz#c42534f632e165120671d64db67883634333b4b8"
+  integrity sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==
 
 escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -1143,9 +1143,9 @@ supports-color@^7.1.0:
     has-flag "^4.0.0"
 
 svelte-hmr@^0.14.2:
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.3.tgz#b6a6781bc923352e3c257ccd7d87d01821ea2d95"
-  integrity sha512-N56xX405zLMw2tpGHKRx5h+kmdeZwxI21pvyC6OyBHJDCF6DlwWBm9TifdQmSD4dloWSmpDPzHWYa3CSjfopUg==
+  version "0.14.4"
+  resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.4.tgz#b7ef2bfeef23916e0e912828c50645ca572ac355"
+  integrity sha512-kItFF7vqzStckSigoFmMnxJpTOdB9TWnQAW6Js+yAB4277tLbJIIE5KBlGHNmJNpA7MguqidsPB27Uw5UzQPCA==
 
 svelte-preprocess@^4.0.0:
   version "4.7.3"
@@ -1204,9 +1204,9 @@ type-fest@^0.8.1:
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
 uglify-js@^3.5.1:
-  version "3.13.6"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.13.6.tgz#6815ac7fdd155d03c83e2362bb717e5b39b74013"
-  integrity sha512-rRprLwl8RVaS+Qvx3Wh5hPfPBn9++G6xkGlUupya0s5aDmNjI7z3lnRLB3u7sN4OmbB0pWgzhM9BEJyiWAwtAA==
+  version "3.13.7"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.13.7.tgz#25468a3b39b1c875df03f0937b2b7036a93f3fee"
+  integrity sha512-1Psi2MmnZJbnEsgJJIlfnd7tFlJfitusmR7zDI8lXlFI0ACD4/Rm/xdrU8bh6zF0i74aiVoBtkRiFulkrmh3AA==
 
 upper-case@^1.1.1:
   version "1.1.3"
@@ -1226,11 +1226,11 @@ v8-compile-cache@^2.0.3:
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
 vite@^2.1.0, vite@^2.3.1:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.2.tgz#cfac76b04d4dee1c7303b55f563b5b62d32f41fe"
-  integrity sha512-QhLdOompDrfkyryCNTts9HE+eJhvhN9ibKNJ5Q8DpQai+6nOsuIlaveZNg67e1O/2QaWqXeBo82eHnAs1De2bQ==
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.3.3.tgz#7e88a71abd03985c647789938d784cce0ee3b0fd"
+  integrity sha512-eO1iwRbn3/BfkNVMNJDeANAFCZ5NobYOFPu7IqfY7DcI7I9nFGjJIZid0EViTmLDGwwSUPmRAq3cRBbO3+DsMA==
   dependencies:
-    esbuild "^0.11.20"
+    esbuild "^0.11.23"
     postcss "^8.2.10"
     resolve "^1.19.0"
     rollup "^2.38.5"
