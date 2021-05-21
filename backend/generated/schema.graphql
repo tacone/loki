@@ -1,21 +1,10 @@
 """The root query type which gives access points into the data universe."""
-type Query implements Node {
+type Query {
   """
   Exposes the root query type nested one level down. This is helpful for Relay 1
   which can only query top level fields if they are in a particular form.
   """
   query: Query!
-
-  """
-  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
-  """
-  nodeId: ID!
-
-  """Fetches an object given its globally unique `ID`."""
-  node(
-    """The globally unique `ID`."""
-    nodeId: ID!
-  ): Node
 
   """Reads a set of `Submission`."""
   submissions(
@@ -40,31 +29,10 @@ type Query implements Node {
   ): [Submission!]
   submission(id: Int!): Submission
   submissionsStatistics: SubmissionsStatistic
-
-  """Reads a single `Submission` using its globally unique `ID`."""
-  submissionByNodeId(
-    """
-    The globally unique `ID` to be used in selecting a single `Submission`.
-    """
-    nodeId: ID!
-  ): Submission
-}
-
-"""An object with a globally unique `ID`."""
-interface Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
 }
 
 """A person's submission to the survey"""
-type Submission implements Node {
-  """
-  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
-  """
-  nodeId: ID!
-
+type Submission {
   """An unique incremental ID"""
   id: Int!
 
@@ -466,16 +434,6 @@ type Mutation {
     input: CreateSubmissionInput!
   ): CreateSubmissionPayload
 
-  """
-  Updates a single `Submission` using its globally unique id and a patch.
-  """
-  updateSubmissionByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSubmissionByNodeIdInput!
-  ): UpdateSubmissionPayload
-
   """Updates a single `Submission` using a unique key and a patch."""
   updateSubmission(
     """
@@ -483,14 +441,6 @@ type Mutation {
     """
     input: UpdateSubmissionInput!
   ): UpdateSubmissionPayload
-
-  """Deletes a single `Submission` using its globally unique id."""
-  deleteSubmissionByNodeId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSubmissionByNodeIdInput!
-  ): DeleteSubmissionPayload
 
   """Deletes a single `Submission` using a unique key."""
   deleteSubmission(
@@ -580,8 +530,8 @@ type UpdateSubmissionPayload {
   query: Query
 }
 
-"""All input for the `updateSubmissionByNodeId` mutation."""
-input UpdateSubmissionByNodeIdInput {
+"""All input for the `updateSubmission` mutation."""
+input UpdateSubmissionInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -589,14 +539,12 @@ input UpdateSubmissionByNodeIdInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Submission` to be updated.
-  """
-  nodeId: ID!
-
-  """
   An object where the defined keys will be set on the `Submission` being updated.
   """
   patch: SubmissionPatch!
+
+  """An unique incremental ID"""
+  id: Int!
 }
 
 """
@@ -634,23 +582,6 @@ input SubmissionPatch {
   createdAt: Date
 }
 
-"""All input for the `updateSubmission` mutation."""
-input UpdateSubmissionInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Submission` being updated.
-  """
-  patch: SubmissionPatch!
-
-  """An unique incremental ID"""
-  id: Int!
-}
-
 """The output of our delete `Submission` mutation."""
 type DeleteSubmissionPayload {
   """
@@ -667,20 +598,6 @@ type DeleteSubmissionPayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
-}
-
-"""All input for the `deleteSubmissionByNodeId` mutation."""
-input DeleteSubmissionByNodeIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Submission` to be deleted.
-  """
-  nodeId: ID!
 }
 
 """All input for the `deleteSubmission` mutation."""

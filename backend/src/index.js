@@ -2,6 +2,7 @@ import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
 import { isListType } from "graphql";
+import {NodePlugin} from "graphile-build";
 
 function allowCors(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -50,6 +51,7 @@ const options = {
   ],
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
+  skipPlugins: [NodePlugin],
 };
 
 // ====================== HTTP Server ======================
