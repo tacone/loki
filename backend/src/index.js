@@ -52,6 +52,7 @@ const options = {
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
   skipPlugins: [NodePlugin],
+  jwtSecret: process.env.JWT_SECRET,
 };
 
 // ====================== HTTP Server ======================
@@ -81,7 +82,7 @@ const options = {
 
 import http from "http";
 
-const handler = postgraphile(process.env.DATABASE_URL, "public", options);
+const handler = postgraphile(process.env.DATABASE_URL, "forum_example", options);
 
 http
   .createServer((req, res) => {

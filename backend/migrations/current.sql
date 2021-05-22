@@ -1,1 +1,3 @@
--- Enter migration here
+
+select 3;
+

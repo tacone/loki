@@ -103,6 +103,10 @@
        "_": "command",
        "command": "chmod +r migrations -R"
     },
+    {
+       "_": "sql",
+       "file": "auth.sql"
+    },
   ],
 
   /*
@@ -110,6 +114,10 @@
    * evaluated (i.e. in watch mode).
    */
   "afterCurrent": [
+    {
+      "_": "sql",
+      "file": "auth.sql"
+    }
     // {
     //   "_": "command",
     //   "shadow": true,
