@@ -38,6 +38,8 @@ const nullListsToEmptyLists = makeWrapResolversPlugin(
 
 const isProduction = process.env.NODE_ENV == "production";
 
+
+/** @type import("postgraphile").PostGraphileOptions */
 const options = {
   watchPg: !isProduction,
   graphiql: !isProduction,
@@ -53,7 +55,9 @@ const options = {
   graphileBuildOptions: { pgOmitListSuffix: true },
   skipPlugins: [NodePlugin],
   jwtSecret: process.env.JWT_SECRET,
-  jwtPgTypeIdentifier: 'forum_example.jwt_token'
+  jwtPgTypeIdentifier: 'forum_example.jwt_token',
+  pgDefaultRole: 'forum_example_anonymous',
+
 };
 
 // ====================== HTTP Server ======================
