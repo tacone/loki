@@ -53,6 +53,7 @@ const options = {
   graphileBuildOptions: { pgOmitListSuffix: true },
   skipPlugins: [NodePlugin],
   jwtSecret: process.env.JWT_SECRET,
+  jwtPgTypeIdentifier: 'forum_example.jwt_token'
 };
 
 // ====================== HTTP Server ======================

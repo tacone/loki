@@ -943,18 +943,11 @@ type AuthenticatePayload {
   query: Query
 }
 
-type JwtToken {
-  role: String
-  personId: Int
-  exp: BigInt
-}
-
 """
-A signed eight-byte integer. The upper big integer values are greater than the
-max value for a JavaScript number. Therefore all big integers will be output as
-strings and not numbers.
+A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
+which securely represents claims between two parties.
 """
-scalar BigInt
+scalar JwtToken
 
 """All input for the `authenticate` mutation."""
 input AuthenticateInput {
