@@ -1,11 +1,28 @@
 version: '3.4'
 
 services:
+
   postgres:
+
+    # 🖼️
     image: postgres:13-alpine
+
+    # 🌳
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+
+    # 👻
+    restart: "always"
+
+    # The $USER_ID env variable will not be applied to
+    # this service.
+    #
+    # The run-time user is already managed by the postgres image
+    # which will set it to "postgres" (uid: 70)
+    # 🔑
+    # user: -- * don't use this directive *
+
+    # 📂
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
       - /tmp/devday/postgres:/tmp
-    restart: "always"
-    environment:
-      POSTGRES_PASSWORD: postgrespassword
