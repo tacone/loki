@@ -1,7 +1,12 @@
 version: '3.4'
 
 services:
+
   postgres:
+
+    # 👻
     restart: "no"
+
+    # 🔗
     ports:
       - ${POSTGRES_PORT:-7040}:5432
