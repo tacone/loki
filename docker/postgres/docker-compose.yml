@@ -14,6 +14,9 @@ services:
     # 👻
     restart: "always"
 
+    # 🛡️ make everything read-only except the volumes
+    read_only: true
+
     # The $USER_ID env variable will not be applied to
     # this service.
     #
@@ -26,3 +29,4 @@ services:
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
       - /tmp/devday/postgres:/tmp
+      - /tmp/devday/postgres-var-run:/var/run
