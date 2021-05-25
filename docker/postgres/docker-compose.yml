@@ -3,8 +3,6 @@ version: '3.4'
 services:
   postgres:
     image: postgres:13-alpine
-    environment:
-      - ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
       - /tmp/devday/postgres:/tmp
