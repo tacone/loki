@@ -63,6 +63,7 @@ comment on function forum_example.authenticate(text, text) is 'Creates a JWT tok
 
 
 --- roles
+
 drop owned by forum_example_postgraphile;
 drop role if exists forum_example_postgraphile;
 create role forum_example_postgraphile login password 'xyz';
@@ -76,6 +77,10 @@ drop owned by forum_example_person;
 drop role if exists forum_example_person;
 create role forum_example_person;
 grant forum_example_person to forum_example_postgraphile;
+
+grant connect on database postgres to forum_example_postgraphile;
+grant usage on schema forum_example to forum_example_postgraphile;
+
 
 -- after schema creation and before function creation
 alter default privileges revoke execute on functions from public;
