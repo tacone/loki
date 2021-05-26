@@ -63,24 +63,32 @@ comment on function forum_example.authenticate(text, text) is 'Creates a JWT tok
 
 
 --- roles
-
-drop owned by forum_example_postgraphile;
-drop role if exists forum_example_postgraphile;
+DO $$
+BEGIN
+if exists (select 1 from pg_roles where rolname = 'forum_example_postgraphile') then
+  drop owned by forum_example_postgraphile;
+  drop role if exists forum_example_postgraphile;
+end if;
 create role forum_example_postgraphile login password 'xyz';
 
-drop owned by forum_example_anonymous;
-drop role if exists forum_example_anonymous;
+if exists (select 1 from pg_roles where rolname = 'forum_example_anonymous') then
+  drop owned by forum_example_anonymous;
+  drop role if exists forum_example_anonymous;
+end if;
 create role forum_example_anonymous;
 grant forum_example_anonymous to forum_example_postgraphile;
 
-drop owned by forum_example_person;
-drop role if exists forum_example_person;
+if exists (select 1 from pg_roles where rolname = 'forum_example_person') then
+  drop owned by forum_example_person;
+  drop role if exists forum_example_person;
+end if;
 create role forum_example_person;
 grant forum_example_person to forum_example_postgraphile;
 
 grant connect on database postgres to forum_example_postgraphile;
 grant usage on schema forum_example to forum_example_postgraphile;
-
+END
+$$;
 
 -- after schema creation and before function creation
 alter default privileges revoke execute on functions from public;

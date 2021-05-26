@@ -5,7 +5,7 @@ import { withClient } from "graphile-migrate/dist/pgReal.js";
  * Check whether migrations have been executed at least once.
  */
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.ROOT_DATABASE_URL;
 
 if (!connectionString) {
   throw new Error("Could not determine connection string to use.");

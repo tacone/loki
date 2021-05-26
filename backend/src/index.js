@@ -2,7 +2,7 @@ import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
 import { isListType } from "graphql";
-import {NodePlugin} from "graphile-build";
+import { NodePlugin } from "graphile-build";
 
 function allowCors(req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -38,7 +38,6 @@ const nullListsToEmptyLists = makeWrapResolversPlugin(
 
 const isProduction = process.env.NODE_ENV == "production";
 
-
 /** @type import("postgraphile").PostGraphileOptions */
 const options = {
   watchPg: !isProduction,
@@ -55,9 +54,9 @@ const options = {
   graphileBuildOptions: { pgOmitListSuffix: true },
   skipPlugins: [NodePlugin],
   jwtSecret: process.env.JWT_SECRET,
-  jwtPgTypeIdentifier: 'forum_example.jwt_token',
-  pgDefaultRole: 'forum_example_anonymous',
-
+  jwtPgTypeIdentifier: "forum_example.jwt_token",
+  pgDefaultRole: "forum_example_anonymous",
+  ownerConnectionString: process.env.ROOT_DATABASE_URL,
 };
 
 // ====================== HTTP Server ======================
@@ -87,7 +86,11 @@ const options = {
 
 import http from "http";
 
-const handler = postgraphile(process.env.DATABASE_URL, "forum_example", options);
+const handler = postgraphile(
+  process.env.DATABASE_URL,
+  "forum_example",
+  options
+);
 
 http
   .createServer((req, res) => {
