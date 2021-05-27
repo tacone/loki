@@ -100,4 +100,3 @@ CREATE TABLE auth.templates
 GRANT ALL PRIVILEGES ON SCHEMA auth TO postgres;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA auth TO postgres;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA auth TO postgres;
-ALTER USER postgres SET search_path = "$user",auth,public;
