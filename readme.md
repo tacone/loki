@@ -133,6 +133,27 @@ While security is not the focus of this starter app, by default we mount the roo
 | `backend/`  | the backend application code                                       |
 | `scripts/`  | the starting scripts (`dev`) and everything needed to make it work |
 
+## Roadmap
+
+Not a real roadmap, just a list of missing features I'd like to add.
+
+### Backend
+
+- use PM2 or any other tool to make use of all the CPU's.
+- proper auth with custom `aud`
+- find out how to handle uploads
+
+### Frontend/Svelte
+
+- image and static assets handling
+- use urql to fetch from graphql
+- persisted queries and typescript types
+
+### Nginx
+
+- read-only fs
+- templating / docker-gen / env vars in the confs
+
 ## Caveats
 
 1. While Postgraphile is incredibly cool, it may not be your piece of cake.
