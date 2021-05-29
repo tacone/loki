@@ -4,6 +4,7 @@ import http from "http";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
 import { allowCors } from "./middleware/cors.js";
+import { ping } from "./plugins/ping.js";
 import { nullListsToEmptyLists } from "./plugins/tweaks.js";
 
 const isProduction = process.env.NODE_ENV == "production";
@@ -18,6 +19,7 @@ const options = {
     connectionFilterPlugin,
     simplifyInflector,
     nullListsToEmptyLists,
+    ping,
   ],
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
@@ -50,7 +52,6 @@ const options = {
 // ---------------------------------------------------------
 
 const handler = postgraphile(process.env.DATABASE_URL, "public", options);
-
 
 http
   .createServer((req, res) => {

@@ -29,6 +29,7 @@ type Query {
   ): [Submission!]
   submission(id: Int!): Submission
   submissionsStatistics: SubmissionsStatistic
+  ping: String!
 }
 
 """A person's submission to the survey"""
@@ -449,6 +450,7 @@ type Mutation {
     """
     input: DeleteSubmissionInput!
   ): DeleteSubmissionPayload
+  pong: String!
 }
 
 """The output of our create `Submission` mutation."""
