@@ -10,20 +10,27 @@ import { nullListsToEmptyLists } from "./plugins/tweaks.js";
 const isProduction = process.env.NODE_ENV == "production";
 
 const options = {
+  // 🔧 only development-mode
   watchPg: !isProduction,
   graphiql: !isProduction,
   enhanceGraphiql: !isProduction,
-  disableQueryLog: isProduction,
   exportGqlSchemaPath: !isProduction && "./generated/schema.graphql",
-  appendPlugins: [
-    connectionFilterPlugin,
-    simplifyInflector,
-    nullListsToEmptyLists,
-    ping,
-  ],
+
+  // 😎 only in production
+  disableQueryLog: isProduction,
+
+  // 🌻 simplify the schema as much as possible
   simpleCollections: "only",
   graphileBuildOptions: { pgOmitListSuffix: true },
   skipPlugins: [NodePlugin],
+
+  // 🎁 plugins
+  appendPlugins: [
+    simplifyInflector, // simplify the schema further
+    connectionFilterPlugin, // extended query filtering (where clause options)
+    nullListsToEmptyLists, // empty lists will be [] rather than null
+    ping, // pong :))
+  ],
 };
 
 // ====================== HTTP Server ======================
