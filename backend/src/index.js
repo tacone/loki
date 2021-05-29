@@ -1,40 +1,10 @@
 import simplifyInflector from "@graphile-contrib/pg-simplify-inflector";
+import { NodePlugin } from "graphile-build";
+import http from "http";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
-import { isListType } from "graphql";
-import {NodePlugin} from "graphile-build";
-
-function allowCors(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  // chr
-  res.setHeader("Access-Control-Max-Age", 86400);
-
-  if (req.method === "OPTIONS") {
-    res.writeHead(200);
-    res.end();
-    return;
-  }
-  next && next();
-}
-
-import { makeWrapResolversPlugin } from "graphile-utils";
-
-// Convert every null list to an empty list (`[]`)
-const nullListsToEmptyLists = makeWrapResolversPlugin(
-  (context) => {
-    return { scope: context.scope };
-  },
-  ({ scope }) =>
-    async (resolver, user, args, context, _resolveInfo) => {
-      const result = await resolver();
-      if (result === null && isListType(_resolveInfo.returnType)) {
-        return [];
-      }
-
-      return result;
-    }
-);
+import { allowCors } from "./middleware/cors.js";
+import { nullListsToEmptyLists } from "./plugins/tweaks.js";
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -79,9 +49,8 @@ const options = {
 // --- Node native HTTP Server
 // ---------------------------------------------------------
 
-import http from "http";
-
 const handler = postgraphile(process.env.DATABASE_URL, "public", options);
+
 
 http
   .createServer((req, res) => {
