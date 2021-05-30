@@ -5,8 +5,9 @@ version: '3.4'
 # Test it with: https://gotruejs-playground.netlify.app
 #
 # NOTE: you have to run migrations manually at least one time!
-# do it with `gotrue migrate`
+# do it with `DATABASE_URL=$DATABASE_ROOT_URL gotrue migrate`
 # NOTE: migrations always run on the "auth" schema (it's hardcoded in the file)
+# NOTE: also the user and the password are harcoded in the migration
 
 services:
     auth:
@@ -25,7 +26,8 @@ services:
             GOTRUE_MAILER_AUTOCONFIRM: 'true'
             GOTRUE_LOG_LEVEL: DEBUG
             GOTRUE_OPERATOR_TOKEN: ${AUTH_OPERATOR_TOKEN}
-            DATABASE_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}
+            DATABASE_URL: ${POSTGRES_AUTH_CONNECTION_URL}/${POSTGRES_DATABASE}
+            DATABASE_ROOT_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}
 
         volumes:
           # custom migrations for postgres

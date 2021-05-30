@@ -2,7 +2,22 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- CREATE EXTENSION IF NOT EXISTS "pg_cron";
 
-CREATE SCHEMA IF NOT EXISTS auth AUTHORIZATION postgres;
+DO $$
+BEGIN
+IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'auth_user') then
+  DROP owned BY auth_user;
+  DROP ROLE IF EXISTS auth_user;
+END IF;
+CREATE ROLE auth_user LOGIN PASSWORD 'authpassword';
+
+GRANT CONNECT ON DATABASE postgres TO auth_user;
+END
+$$;
+
+CREATE SCHEMA IF NOT EXISTS auth AUTHORIZATION auth_user;
+GRANT usage ON SCHEMA auth TO auth_user;
+
+
 -- auth.users definition
 CREATE TABLE auth.users (
 	instance_id uuid NULL,
@@ -97,7 +112,7 @@ CREATE TABLE auth.templates
   CONSTRAINT templates_pkey PRIMARY KEY (id)
 );
 
-GRANT ALL PRIVILEGES ON SCHEMA auth TO postgres;
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA auth TO postgres;
-GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA auth TO postgres;
-ALTER USER postgres SET search_path = "$user",auth,public;
+GRANT ALL PRIVILEGES ON SCHEMA auth TO auth_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA auth TO auth_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA auth TO auth_user;
+ALTER USER auth_user SET search_path = "$user",auth,public;
