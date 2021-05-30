@@ -4,7 +4,8 @@ import http from "http";
 import { postgraphile } from "postgraphile";
 import connectionFilterPlugin from "postgraphile-plugin-connection-filter";
 import { allowCors } from "./middleware/cors.js";
-import { ping } from "./plugins/ping.js";
+import ping from "./plugins/ping.js";
+import auth from "./plugins/auth.js";
 import { nullListsToEmptyLists } from "./plugins/tweaks.js";
 
 const isProduction = process.env.NODE_ENV == "production";
@@ -30,6 +31,7 @@ const options = {
     connectionFilterPlugin, // extended query filtering (where clause options)
     nullListsToEmptyLists, // empty lists will be [] rather than null
     ping, // pong :))
+    auth,
   ],
 };
 

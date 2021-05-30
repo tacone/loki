@@ -14,9 +14,13 @@ GRANT CONNECT ON DATABASE postgres TO auth_user;
 END
 $$;
 
+-- DROP TABLE IF EXISTS public.schema_migrations;
+
 CREATE SCHEMA IF NOT EXISTS auth AUTHORIZATION auth_user;
 GRANT usage ON SCHEMA auth TO auth_user;
 
+GRANT ALL PRIVILEGES ON SCHEMA auth TO auth_user;
+ALTER USER auth_user SET search_path = "$user",auth;
 
 -- auth.users definition
 CREATE TABLE auth.users (
@@ -112,7 +116,6 @@ CREATE TABLE auth.templates
   CONSTRAINT templates_pkey PRIMARY KEY (id)
 );
 
-GRANT ALL PRIVILEGES ON SCHEMA auth TO auth_user;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA auth TO auth_user;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA auth TO auth_user;
-ALTER USER auth_user SET search_path = "$user",auth,public;
+

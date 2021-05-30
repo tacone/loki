@@ -6,7 +6,7 @@ import { gql, makeExtendSchemaPlugin } from "graphile-utils";
  * Also useful as a health-check endpoint.
  */
 
-export const ping = makeExtendSchemaPlugin((build) => {
+const ping = makeExtendSchemaPlugin((build) => {
   return {
     typeDefs: gql`
       extend type Query {
@@ -31,3 +31,5 @@ export const ping = makeExtendSchemaPlugin((build) => {
     },
   };
 });
+
+export default ping;

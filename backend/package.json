@@ -15,7 +15,9 @@
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
     "graphile-migrate": "^1.0.2",
+    "graphql-type-json": "^0.3.2",
     "lodash": "^4.17.21",
+    "node-fetch": "^2.6.1",
     "polka": "^0.5.2",
     "postgraphile": "^4.11.0",
     "postgraphile-plugin-connection-filter": "^2.2.1"
