@@ -10,6 +10,8 @@ import { nullListsToEmptyLists } from "./plugins/tweaks.js";
 
 const isProduction = process.env.NODE_ENV == "production";
 
+const databaseSchema = 'app';
+
 const options = {
   // 🔧 only development-mode
   watchPg: !isProduction,
@@ -33,6 +35,12 @@ const options = {
     ping, // pong :))
     auth,
   ],
+
+  // 🛡️ security
+  jwtSecret: process.env.JWT_SECRET,
+  jwtPgTypeIdentifier: "app.jwt_token",
+  pgDefaultRole: "anon",
+  ownerConnectionString: process.env.ROOT_DATABASE_URL,
 };
 
 // ====================== HTTP Server ======================
@@ -50,7 +58,7 @@ const options = {
 //
 // polka()
 //   .use(allowCors)
-//   .use(postgraphile(process.env.DATABASE_URL, "public", options))
+//   .use(postgraphile(process.env.DATABASE_URL, databaseSchema, options))
 //   .listen(process.env.PORT ?? 3000, (err) => {
 //     if (err) throw err;
 //     console.log(`> Running on localhost:3000`);
@@ -60,7 +68,7 @@ const options = {
 // --- Node native HTTP Server
 // ---------------------------------------------------------
 
-const handler = postgraphile(process.env.DATABASE_URL, "public", options);
+const handler = postgraphile(process.env.DATABASE_URL, databaseSchema, options);
 
 http
   .createServer((req, res) => {

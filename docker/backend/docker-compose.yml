@@ -25,9 +25,10 @@ services:
     # 🌳
     environment:
       NODE_ENV: production
+      JWT_SECRET: ${AUTH_JWT_SECRET}
       DATABASE_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}
-      SHADOW_DATABASE_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}_shadow
-      ROOT_DATABASE_URL: ${POSTGRES_CONNECTION_URL}/${POSTGRES_DATABASE}_root
+      SHADOW_DATABASE_URL: ${POSTGRES_ADMIN_CONNECTION_URL}/${POSTGRES_DATABASE}_shadow
+      ROOT_DATABASE_URL: ${POSTGRES_ADMIN_CONNECTION_URL}/${POSTGRES_DATABASE}?
       AUTH_URL: ${AUTH_URL}
       YARN_DISABLE_SELF_UPDATE_CHECK: "true"
       USER_ID: ${USER_ID}
@@ -69,6 +70,7 @@ services:
     command: >-
       sh -c '
       wait-port postgres 5432
+      && yarn run init-schemas
       && yarn run migrations migrate
       && yarn run start
       '

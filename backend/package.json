@@ -8,9 +8,9 @@
     "dev": "nodemon -w src --exec node src/index.js",
     "start": "node src/index.js",
     "build": "echo TODO: do we need build?",
-    "migrations": "graphile-migrate",
-    "migrations-check": "node src/check-migrations.js",
-    "migrations-init-root-db": "node src/init-root-db.js"
+    "migrations": "DATABASE_URL=$ROOT_DATABASE_URL? graphile-migrate",
+    "migrations-check": "DATABASE_URL=$ROOT_DATABASE_URL? node src/check-migrations.js",
+    "init-schemas": "DATABASE_URL=$ROOT_DATABASE_URL? node src/init-schemas.js"
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
