@@ -48,7 +48,7 @@
 	{#await promise}
 		<p>...waiting</p>
 	{:then number}
-		<h2 className="page-title">Risultati ({totalSubmissions} invii)</h2>
+		<h2 class="page-title">Risultati ({totalSubmissions} invii)</h2>
 
 		<Grid columns="2" items={recordsets} let:key let:item>
 			<Result name={key} records={item} />
