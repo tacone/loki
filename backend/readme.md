@@ -27,15 +27,15 @@ I encorage you to read the docs of the various componebnts of the stack.
 ### Migrations
 
 Under the hood we use **Graphile Migrate**, you can access its features running
-`scripts/dev run backend migrations`.
+`scripts/dev run backend yarn migrations`.
 
 The first development run will execute all the migrations. From then, executing
-migrations is up to you using `scripts/dev run backend migrations migrate`.
+migrations is up to you using `scripts/dev run backend yarn migrations migrate`.
 
 In production migrations are always run.
 
 When in development you can watch migrations file with
-`scripts/dev run backend migrations watch`.
+`scripts/dev run backend yarn migrations watch`.
 
 Make sure you read the docs: https://github.com/graphile/migrate
 
