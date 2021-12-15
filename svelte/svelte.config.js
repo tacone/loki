@@ -5,7 +5,6 @@ import { dirname, resolve } from 'path';
 import sveltePreprocess from 'svelte-preprocess';
 import { fileURLToPath } from 'url';
 
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 let { dependencies } = JSON.parse(fs.readFileSync('./package.json'));
 
@@ -37,6 +36,13 @@ const config = {
 			resolve: {
 				alias: {
 					$utils: resolve(__dirname, './src/utils')
+				}
+			},
+			server: {
+				hmr: {
+					// we have to explicit this, see:
+					// https://github.com/sveltejs/kit/issues/1134#issuecomment-947922754
+					port: process.env.SVELTE_PORT
 				}
 			}
 		}

@@ -15,11 +15,7 @@ services:
     # 🌳
     environment:
       NODE_ENV: development
-
-    # 🔗
-    ports:
-      # this is for Vite HMR
-      - 24678:24678
+      SVELTE_PORT: ${SVELTE_PORT:-7002}
 
     # 👻
     restart: "no"
