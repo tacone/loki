@@ -2,10 +2,12 @@
 
 # --- Base Environment Variables
 
-SCRIPTS=$(dirname "$0")
-THIS=$(basename "$0")
+SCRIPTS=$(realpath $(dirname "$0"))
+THIS=$SCRIPTS/$(basename "$0")
 ROOT=$(realpath $SCRIPTS/..)
 DATA=$ROOT/data
+
+cd $ROOT
 
 # --- Common functions
 

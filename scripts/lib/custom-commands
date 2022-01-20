@@ -38,54 +38,54 @@ Usage: ports
 ";
 
     if [ "$1" = "ports" ]; then
-        $0 config ${@:2}| $SCRIPTS/bin/yq r --printMode pv - '**.ports.**' | grep -i published | tr . ' '  | awk '{print $2 ": " $6}';
+        $THIS config ${@:2}| $SCRIPTS/bin/yq r --printMode pv - '**.ports.**' | grep -i published | tr . ' '  | awk '{print $2 ": " $6}';
         exit 0;
     fi;
 
     # undocumented shortcuts :-)
 
     if [ "$1" = "b" ]; then
-        $0 build "${@:2}"
+        $THIS build "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "d" ]; then
-        $0 down "${@:2}"
+        $THIS down "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "x" ]; then
-        $0 exec "${@:2}"
+        $THIS exec "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "l" ]; then
-        $0 logs "${@:2}"
+        $THIS logs "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "r" ]; then
-        $0 run "${@:2}"
+        $THIS run "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "s" ]; then
-        $0 stop "${@:2}"
+        $THIS stop "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "u" ]; then
-        $0 up "${@:2}"
+        $THIS up "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "ub" ]; then
-        $0 up --build "${@:2}"
+        $THIS up --build "${@:2}"
         exit 0;
     fi;
 
     if [ "$1" = "v" ]; then
-        $0 version "${@:2}"
+        $THIS version "${@:2}"
         exit 0;
     fi;
 
