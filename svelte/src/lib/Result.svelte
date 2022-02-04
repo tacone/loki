@@ -16,7 +16,7 @@
 
 <h3>{humanizeString(name)}</h3>
 <table class="table results-table table-bordered">
-	<thead class="thead-dark">
+	<thead class="table-dark">
 		<tr>
 			<th scope="col">{humanizeString(name)}</th>
 			<th scope="col" class="numeric-column"> Entries </th>

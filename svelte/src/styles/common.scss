@@ -4,4 +4,5 @@
 @import "variables"; // override variables
 @import "bootstrap/scss/variables"; // just in case new variables are added upstream
 @import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
 @import "bootstrap/scss/root";
