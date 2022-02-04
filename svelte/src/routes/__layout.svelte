@@ -1,4 +1,5 @@
 <script>
+	import '../custom.scss';
 	import '../app.scss';
 </script>
 

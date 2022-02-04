@@ -1,4 +1,17 @@
-@import './styles/bootstrap.scss';
+// put your app styling here
+//
+// in this file, we are importing the bare minimum, for faster compiling
+// if something doesn't work here, consider putting in into custom.scss
+
+// --- import the bare minimum of bootstrap
+
+@import "styles/common";
+
+// --- style your app so that it looks cool
+
+body {
+	// background: red;
+}
 
 .header {
 	margin-top: 30px;
@@ -16,7 +29,7 @@
 	margin-bottom: 30px;
 }
 
-.numericColumn {
+.numeric-column {
 	text-align: right;
 }
 
@@ -26,4 +39,12 @@ form {
 		color: #900;
 		// font-size: 90%;
 	}
+}
+
+label {
+	font-weight: bold;
+}
+.form-control {
+	border-radius: 0;
+	border-style: solid;
 }

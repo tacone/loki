@@ -1,0 +1,18 @@
+// for app styiling please use app.scss
+// this file is slow to compile, but you'll have the whole bootstrap imported
+//
+// use this file to customize bootstrap itself
+
+// --- customize variables and mixins here
+//
+// $body-bg: green;
+
+// --- import the bootstrap files
+
+@import './styles/bootstrap.scss';
+
+// --- customize bootstrap classes here if you need to
+//
+// p {
+// 	@extend .h1;
+// }

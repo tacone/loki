@@ -1,18 +1,14 @@
-/*!
- * Bootstrap v4.6.0 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+// --- Bootstrap imports
+//
+// in this files we import the bootstrap files we need
+// feel free to comment out all the file you don't need
+// to keep the CSS size to the bare minimum.
 
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables"; // just in case new variables are added upstream
-@import "variables"; // override variables
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/root";
+@import "common";
+
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
-@import "bootstrap/scss/images";
+// @import "bootstrap/scss/images";
 //  @import "bootstrap/scss/code";
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/tables";
@@ -33,7 +29,7 @@
 @import "bootstrap/scss/alert";
 //  @import "bootstrap/scss/progress";
 //  @import "bootstrap/scss/media";
-@import "bootstrap/scss/list-group";
+// @import "bootstrap/scss/list-group";
 //  @import "bootstrap/scss/close";
 //  @import "bootstrap/scss/toasts";
 //  @import "bootstrap/scss/modal";

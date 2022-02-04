@@ -1,0 +1,7 @@
+// common imports (fast to compile) to be included everywhere
+
+@import "bootstrap/scss/functions";
+@import "variables"; // override variables
+@import "bootstrap/scss/variables"; // just in case new variables are added upstream
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";

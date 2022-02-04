@@ -19,8 +19,8 @@
 	<thead class="thead-dark">
 		<tr>
 			<th scope="col">{humanizeString(name)}</th>
-			<th scope="col" class="numericColumn"> Entries </th>
-			<th scope="col" class="numericColumn"> % </th>
+			<th scope="col" class="numeric-column"> Entries </th>
+			<th scope="col" class="numeric-column"> % </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,8 +28,8 @@
 			{#each records as r}
 				<tr>
 					<td>{r.value}</td>
-					<td class="numericColumn">{r.count}</td>
-					<td class="numericColumn">{formatPercent(r.ratio)} %</td>
+					<td class="numeric-column">{r.count}</td>
+					<td class="numeric-column">{formatPercent(r.ratio)} %</td>
 				</tr>
 			{/each}
 		{:else}

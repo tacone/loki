@@ -2,6 +2,7 @@
 	export let status;
 	export let error;
 
+	import '../custom.scss';
 	import '../app.scss';
 
 	const message= error?.message ?? 'Unknown error'
