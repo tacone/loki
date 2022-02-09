@@ -14,13 +14,13 @@
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
-    "graphile-migrate": "^1.0.2",
+    "graphile-migrate": "^1.2.0",
     "lodash": "^4.17.21",
     "polka": "^0.5.2",
-    "postgraphile": "^4.11.0",
-    "postgraphile-plugin-connection-filter": "^2.2.1"
+    "postgraphile": "^4.12.8",
+    "postgraphile-plugin-connection-filter": "^2.2.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.15"
   }
 }
