@@ -12,20 +12,20 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@minify-html/js": "^0.4.6",
+		"@minify-html/js": "^0.8.0",
 		"@sveltejs/adapter-node": "^1.0.0-next.16",
 		"@sveltejs/adapter-static": "^1.0.0-next.9",
 		"@sveltejs/kit": "^1.0.0-next.77",
 		"bootstrap": "^5",
 		"email-validator": "^2.0.4",
-		"eslint": "^7.22.0",
+		"eslint": "^8.8.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.1.0",
-		"felte": "^0.6.8",
-		"graphql": "^15.5.0",
-		"graphql-request": "^3.4.0",
+		"felte": "^0.9.1",
+		"graphql": "^16.3.0",
+		"graphql-request": "^4.0.0",
 		"html-minifier": "^4.0.0",
-		"prettier": "~2.2.1",
+		"prettier": "~2.5.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"sass": "^1.32.0",
 		"svelte": "^3.29.0",
@@ -37,6 +37,6 @@
 		"node": ">= 12.17.0"
 	},
 	"dependencies": {
-		"@felte/reporter-dom": "^0.2.0"
+		"@felte/reporter-dom": "^0.3.13"
 	}
 }
