@@ -8,14 +8,13 @@
     "dev": "nodemon -w src --exec node src/index.js",
     "start": "node src/index.js",
     "build": "echo TODO: do we need build?",
-    "migrations": "graphile-migrate",
-    "migrations-check": "node src/check-migrations.js",
-    "migrations-init-root-db": "node src/init-root-db.js"
+    "migrations": "node src/migrate.js"
   },
   "dependencies": {
     "@graphile-contrib/pg-simplify-inflector": "^6.1.0",
-    "graphile-migrate": "^1.2.0",
+    "cli-highlight": "^2.1.11",
     "lodash": "^4.17.21",
+    "migrami": "^0.6.4",
     "polka": "^0.5.2",
     "postgraphile": "^4.12.8",
     "postgraphile-plugin-connection-filter": "^2.2.2"

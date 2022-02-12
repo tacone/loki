@@ -9,7 +9,7 @@ This backend is very fast and can return simple results with 1-3 ms of latency.
 - NodeJs 🚀
 - [Polka](https://github.com/lukeed/polka) (optional)
 - [Postgraphile](https://github.com/graphile/postgraphile/)
-- [Graphile Migrate](https://github.com/graphile/migrate)
+- [Migrami](https://github.com/tacone/migrami)
 
 ## Features
 
@@ -26,7 +26,7 @@ easy.
 I encorage you to read the docs of the various componebnts of the stack.
 ### Migrations
 
-Under the hood we use **Graphile Migrate**, you can access its features running
+Under the hood we use **Migrami**, you can access its features running
 `scripts/dev run backend yarn migrations`.
 
 The first development run will execute all the migrations. From then, executing
