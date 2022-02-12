@@ -1,7 +1,7 @@
 --! Previous: -
 --! Hash: sha1:2420a9a32121ea4d394a77f40941e9a264256f22
 
-DROP TABLE IF EXISTS submissions;
+DROP TABLE IF EXISTS submissions CASCADE;
 
 CREATE TABLE submissions (
 	id serial NOT NULL,
