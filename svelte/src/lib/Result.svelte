@@ -24,7 +24,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#if records.length}
+		{#if records && records.length}
 			{#each records as r}
 				<tr>
 					<td>{r.value}</td>
