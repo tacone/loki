@@ -27,7 +27,7 @@
 		{#if records && records.length}
 			{#each records as r}
 				<tr>
-					<td>{r.value}</td>
+					<td>{r.value || '-'}</td>
 					<td class="numeric-column">{r.count}</td>
 					<td class="numeric-column">{formatPercent(r.ratio)} %</td>
 				</tr>
