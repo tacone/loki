@@ -4,7 +4,14 @@
 	import { request } from 'graphql-request';
 	import { browser } from '$app/env';
 
-	const query = `
+	import { initClient, query, operationStore } from '@urql/svelte';
+
+	initClient({
+		url: import.meta.env.VITE_GRAPHQL_ENDPOINT,
+		maskTypename: true
+	});
+
+	const store = operationStore(`
 		query {
 			submissionsStatistics {
 				age {
@@ -29,23 +36,52 @@
 				}
 				totalSubmissions
 			}
-		}`;
+		}`);
 
 	let recordsets = {};
-	$: delete recordsets['totalSubmissions'];
-	$: totalSubmissions = 0;
-	$: promise = !browser
-		? true
-		: request(import.meta.env.VITE_GRAPHQL_ENDPOINT, query).then((res) => {
-				recordsets = res['submissionsStatistics'];
-				totalSubmissions = res['submissionsStatistics']['totalSubmissions'];
-		  });
+	let totalSubmissions = 0;
 
-	$: console.log(recordsets)
+	if (browser) query(store);
+
+	$: {
+		let data = $store.data;
+		recordsets = data?.submissionsStatistics || {};
+		totalSubmissions = data?.submissionsStatistics?.totalSubmissions || 0;
+		delete recordsets['totalSubmissions'];
+	}
+
+	// $: promise = !browser
+	// 	? true
+	// 	: request(import.meta.env.VITE_GRAPHQL_ENDPOINT, query).then((res) => {
+	// 			recordsets = res['submissionsStatistics'];
+	// 			totalSubmissions = res['submissionsStatistics']['totalSubmissions'];
+	// 	  });
+
+	// $: promise = !browser
+	// 	? true
+	// 	: request(import.meta.env.VITE_GRAPHQL_ENDPOINT, query).then((res) => {
+	// 			recordsets = res['submissionsStatistics'];
+	// 			totalSubmissions = res['submissionsStatistics']['totalSubmissions'];
+	// 	  });
+
+	$: console.log('recordsets', recordsets);
+	$: console.log('store', store);
 </script>
 
 <main>
-	{#await promise}
+	{#if $store.fetching}
+		<p>...waiting</p>
+	{:else if $store.error}
+		<div class="alert alert-danger text-center" role="alert">Network error</div>
+	{:else}
+		<h2 class="page-title">Risultati ({totalSubmissions || 0} invii)</h2>
+
+		<Grid columns="2" items={recordsets} let:key let:item>
+			<Result name={key} records={item} />
+		</Grid>
+	{/if}
+
+	<!-- {#await promise}
 		<p>...waiting</p>
 	{:then number}
 		<h2 class="page-title">Risultati ({totalSubmissions} invii)</h2>
@@ -55,7 +91,7 @@
 		</Grid>
 	{:catch error}
 		<div class="alert alert-danger text-center" role="alert">Network error</div>
-	{/await}
+	{/await} -->
 </main>
 
 <style lang="scss">
