@@ -875,9 +875,9 @@ media-typer@0.3.0:
   integrity sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=
 
 migrami@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/migrami/-/migrami-0.6.4.tgz#82c4bdfacb75ec2b095ff25aaa7c1c7808dabdc3"
-  integrity sha512-MP5TfRAvjaROWydJiHKE88C70PKnH46vxujCJwWu0nY8rwiaWni8rZrcvBtw46ahZ8qHTnam7MRyArNZTWIORQ==
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/migrami/-/migrami-0.6.5.tgz#16dcb69d94a8f1d660993b04386b01fc35591050"
+  integrity sha512-nVPxoIlkk59pi71RWqtSyc+cPAHluMytMUia+4yA3xEpZ5jeMztkLmRYAjOfV6XbqIPXFMZulE3f3IAwzriWCg==
   dependencies:
     chokidar "^3.5.2"
     pg "^8.7.1"
