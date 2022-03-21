@@ -19,14 +19,14 @@
 			aria-label="Search"
 		/>
 		<ul class="dropdown-menu w-100 border-0 shadow" aria-labelledby="dropdownMenuButton1">
-			<li><a class="dropdown-item" href="#">Action</a></li>
-			<li><a class="dropdown-item" href="#">Another action</a></li>
-			<li><a class="dropdown-item" href="#">Something else here</a></li>
+			<li><a class="dropdown-item" href="/">Action</a></li>
+			<li><a class="dropdown-item" href="/">Another action</a></li>
+			<li><a class="dropdown-item" href="/">Something else here</a></li>
 		</ul>
 	</div>
 	<div class="navbar-nav">
 		<div class="nav-item text-nowrap">
-			<a class="nav-link px-3" href="#">Sign out</a>
+			<a class="nav-link px-3" href="/">Sign out</a>
 		</div>
 	</div>
 </header>

@@ -98,7 +98,25 @@ type Query {
   feedByUrl(url: String!): Feed
   item(id: UUID!): Item
   submission(id: Int!): Submission
+  enc(hash16: String): String
+  smallHash(hash16: String): String
+  stringNchars(
+    arg0: String
+    arg1: Int
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Skip the first `n` values."""
+    offset: Int
+
+    """
+    A filter to be used in determining which values should be returned by the collection.
+    """
+    filter: StringFilter
+  ): [String]
   submissionsStatistics: SubmissionsStatistic
+  tinyHash(hash16: String): String
   uuidTimestamp(id: UUID!): Datetime
   ping: String!
 }
@@ -1027,18 +1045,6 @@ type Mutation {
     """
     input: ImportItemsInput!
   ): ImportItemsPayload
-  smallHash(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: SmallHashInput!
-  ): SmallHashPayload
-  tinyHash(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: TinyHashInput!
-  ): TinyHashPayload
   pong: String!
   importFeed(url: String!): Feed!
 }
@@ -1629,54 +1635,4 @@ input ImportItemsInput {
   """
   clientMutationId: String
   downloadId: UUID
-}
-
-"""The output of our `smallHash` mutation."""
-type SmallHashPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  string: String
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-}
-
-"""All input for the `smallHash` mutation."""
-input SmallHashInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  hash16: String
-}
-
-"""The output of our `tinyHash` mutation."""
-type TinyHashPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  string: String
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-}
-
-"""All input for the `tinyHash` mutation."""
-input TinyHashInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  hash16: String
 }
