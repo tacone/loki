@@ -1,5 +1,5 @@
---! Previous: sha1:2420a9a32121ea4d394a77f40941e9a264256f22
---! Hash: sha1:89dd1bd53a808c22dbd6f2b8285550c83bcc77c2
+--! Previous: sha1:26f6a16aefd13ec3275969b0d2baa49a58f15c6d
+--! Hash: sha1:016925dc0f1c6c516f2bc5183dfeedf564b5e8dc
 --! Message: add-statistics-views
 
 DROP VIEW IF EXISTS age_stats CASCADE;

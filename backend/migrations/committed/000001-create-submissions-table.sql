@@ -1,5 +1,5 @@
 --! Previous: -
---! Hash: sha1:2420a9a32121ea4d394a77f40941e9a264256f22
+--! Hash: sha1:26f6a16aefd13ec3275969b0d2baa49a58f15c6d
 
 DROP TABLE IF EXISTS submissions CASCADE;
 
